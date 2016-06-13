@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>jQuery UI Dialog - Uso básico</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+<!= estilo css ==>
+<link rel="stylesheet" href="../practicas/dark-hive/theme.css" />
+
+<script>
+//iniciamos la funcion
+$(function () {
+
+//iniciamos el dialogo
+$("#dialog").dialog({
+  //no se abrira automaticamente
+  autoOpen:false,
+  //tipo modal
+  modal:true,
+  //efectos show hide
+  show:{
+    effect:"blind",
+    duration:1000
+  },
+  hide:{
+    effect:"explode",
+    duration:1000
+  },
+  //creamos boton aceptar
+  buttons:{
+    "Aceptar": function(){
+      nombre.value = el_nombre.value;
+      $(this).dialog("close");
+  },
+  //ahora vamos a crear un boton cerrar
+    "Cerrar": function(){//entre comillas el value q queremos mostrar
+      $(this).dialog("close");//funcion close para cerrar la ventana
+    }
+  }
+});
+//con el boton abrir llamamos a la funcion open del dialog
+$("#abrir")
+.button()
+.click(function(){
+  //le damos los atributos width y height
+  $("#dialog").dialog("option", "width", 600);
+  $("#dialog").dialog("option","width",300);
+  //lo dejamos sin posibilidad de ser redimensionado
+  $("#dialog").dialog("option", "resizable", false);
+  //abrimos el dialogo
+  $("#dialog").dialog("open");
+})
+});
+</script>
+</head>
+<body>
+  <div id="dialog" title="Dialogo básico">
+  Nombre:<input type="text" id="el_nombre" value="" />
+  </div>
+<input type="text" id="nombre" value="" />
+<button type="button" name="abrir" id="abrir">Abrir dialog</button>
+</body>
+</html>
