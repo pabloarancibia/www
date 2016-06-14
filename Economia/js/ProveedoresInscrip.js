@@ -211,6 +211,23 @@ $('#btAdd').attr('class', 'bt');
 ////////////////////////PARTE AJAX MODIFICAR DATOS /////////////////////////////
 //
 //
+$('#btnSigModif').click(function(){
+$.ajax({
+url: "../Logica/getdataCargarDatosPreIns.php",
+type: "POST",
+dataType: "json",
+data: { NroSol: $("#NroSol").val() },
+success: function(data){
+if (data.nombres){
+$("#nombres").val(data.nombres);
+}else{
+$("#nombres").val("error");
+}
+}
+});
+$("#datos").show('slow');
+});
+/*
 $("#btnSigModif").click(function(){
 
 			// enviamos una petición al servidor mediante AJAX enviando el id
@@ -223,7 +240,7 @@ $("#btnSigModif").click(function(){
 				if(data.nombres){
 
 					$("#nombres").val(data.nombres);
-					/*$("#domicilio").val(data.domicilio);
+					$("#domicilio").val(data.domicilio);
 					$("#email").val(data.email);
 					$("#conv_multi").val(data.conv_multi);
 					$("#localidad").val(data.localidad);
@@ -265,7 +282,7 @@ $("#btnSigModif").click(function(){
 					$("#nom_aut4").val(data.nom_aut4);
 					$("#cargo_aut4").val(data.cargo_aut4);
 					$("#tipo_doc_aut4").val(data.tipo_doc_aut4);
-					$("#documento_aut4").val(data.documento_aut4);*/
+					$("#documento_aut4").val(data.documento_aut4);
 				}else{
 					$("#nombres").val("error");
 				}
@@ -273,7 +290,7 @@ $("#btnSigModif").click(function(){
 		},"json");
 
 			$("#datos").show('slow');
-		});
+		});*/
 
 });//fin document.ready
 
