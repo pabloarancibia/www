@@ -218,13 +218,16 @@ type: "POST",
 dataType: "json",
 data: { NroSol: $("#NroSol").val() },
 success: function(data){
-if (data.nombres){
+//if (data.nombres){
+alert("algo");
 $("#nombres").val(data.nombres);
-}else{
-$("#nombres").val("error");
-}
+
+//}else{
+//$("#nombres").val("error");
+//}
 }
 });
+
 $("#datos").show('slow');
 });
 /*

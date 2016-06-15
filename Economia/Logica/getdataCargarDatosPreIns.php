@@ -1,11 +1,11 @@
 <?php
-echo "prueba";
+
 if (!function_exists('Conectarse')) {
 include "../Conexion/Conexion.php";
 }
 $conexion=Conectarse();
 //bbbbbbbbbbbbb
-$NroSol=$_POST["NroSol"];
+$Nrosol=$_POST["NroSol"];
 //echo $NroSol;
 //echo json_encode(array("nombres"=>$cuit, "domicilio"=>"dom"));
 
