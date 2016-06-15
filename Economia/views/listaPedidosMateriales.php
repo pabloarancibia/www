@@ -237,10 +237,10 @@ echo "</table>";
       echo "<td align='right' >".number_format($conteo,0,",",".")."</td>";
       echo "<td align='right' >".number_format($row['idrubro'],0,",",".")."</td>";
       echo "<td align='right'>".number_format($row['idsubr'],0,",",".")."</td>";
-	    echo "<td align='right' >".number_format($row['cantidad'],0,",",".")."</td>";
+	  echo "<td align='right' >".number_format($row['cantidad'],0,",",".")."</td>";
       echo "<td align='justify' width='750'>".utf8_decode($row['detallepedido'])."</td>";
-	    echo "<td align='right'>".chr(36).' '.number_format($row['importedetalle'],0,",",".")."</td>";
-	    echo "</tr>";
+	  echo "<td align='right'>".chr(36).' '.number_format($row['importedetalle'],0,",",".")."</td>";
+	  echo "</tr>";
       $conteo++;
     $tmontof=$tmontof+$row['importedetalle'];
 	// aca colocar el tema del salto de pagina
