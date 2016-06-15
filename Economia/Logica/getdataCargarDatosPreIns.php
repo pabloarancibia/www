@@ -4,21 +4,19 @@ if (!function_exists('Conectarse')) {
 include "../Conexion/Conexion.php";
 }
 $conexion=Conectarse();
-//bbbbbbbbbbbbb
+
 $Nrosol=$_POST["NroSol"];
-//echo $NroSol;
+
 //echo json_encode(array("nombres"=>$cuit, "domicilio"=>"dom"));
 
-///$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '$NroSol'";
-///$datosProv = mysqli_query($conexion, $query) or die(mysql_error());
+$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '$NroSol'";
+$datosProv = mysqli_query($conexion, $query) or die(mysql_error());
 
-///if (mysqli_num_rows($datosProv)!=0){
-///  while ($registro = mysqli_fetch_array($datosProv)) {
-
+if (mysqli_num_rows($datosProv)!=0){
+  while ($registro = mysqli_fetch_array($datosProv)) {
     //$cuit = $registro['cuit'];
-
-///    $nombres = $registro['nombres'];
-  /*  $domicilio = $registro['domicilio'];
+    $nombres = $registro['nombres'];
+    $domicilio = $registro['domicilio'];
   $conv_multi = $registro['conv_multi'];
   $email = $registro['email'];
     $localidad = strtoupper($registro['localidad']);
@@ -60,12 +58,11 @@ $Nrosol=$_POST["NroSol"];
     $nom_aut4 = $registro['nom_aut4'];
     $cargo_aut4 = $registro['cargo_aut4'];
     $tipo_doc_aut4 = $registro['tipo_doc_aut4'];
-    $documento_aut4 = $registro['documento_aut4'];*/
-///  }
+    $documento_aut4 = $registro['documento_aut4'];
+ }
   echo json_encode(array(
 "nombres"=>"si hay datos"));
-    //"nombres"=>$nombres
-    /*,
+    "nombres"=>$nombres,
     "domicilio"=>$domicilio,
     //"cuit"=>$cuit,
     "email"=>$email)
@@ -110,15 +107,15 @@ $Nrosol=$_POST["NroSol"];
     "cargo_aut4"=>$cargo_aut4,
     "tipo_doc_aut4"=>$tipo_doc_aut4,
     "documento_aut4"=>$documento_aut4
-*/
-///    );
-///}else {
-///  echo json_encode(array(
-///  "nombres"=>"no hay datos"//,
-  //"domicilio"=>"no hay datos",
+
+    );
+}else {
+  echo json_encode(array(
+  "nombres"=>"no hay datos"//,
+  "domicilio"=>"no hay datos",
   //"cuit"=>"no hay datos",
   //"email"=>"no hay datos"
-///)
-///);
-///}
+)
+);
+}
 ?>
