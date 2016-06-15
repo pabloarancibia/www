@@ -1,138 +1,324 @@
 <?php
-require('../fpdf/fpdf.php');
-require("../Conexion/Conexion.php");
+if(!isset($_SESSION)) 
+{ 
+        session_start(); 
+}
+$idsol=$_SESSION['secretaria'];
+include "../Conexion/Conexion.php";
+$np=obtenerPed($idsol);
+//$np=2;
+$secretaria="";$ssecretaria="";$subs="";$dgral="";
+$destino="";$totalletra="";$cuenta="";$nump=0;$anp=0;
+
+function cabecera($np,$idsol){
+$queryS="select * from secretarias a where a.sec='".$idsol."';"; 
+$querySS="select * from subsecretarias where isec='".$idsol."' ;";
+$queryCabecera="select a.nropedido,a.aniopedido,a.estado,a.totalped,a.totalletra, a.idsolicitante,a.destinomat,a.cuenta from pedidomateriales a where (a.idsolicitante='".$idsol."') and (a.nropedido='".$np."');";
 $conexion=Conectarse();
-/*
-$id=$_POST['bsprov'];
-$dni=$_POST['nrodni'];
+/////////////////traigo las dependencias
+$conprov=mysqli_query($conexion,$queryS);
+$fil=@mysqli_fetch_array($conprov);
+$secretaria=$fil['detsec'];//mysqli_free_result($fil);
+$conprov=mysqli_query($conexion,$querySS);
+$fil=@mysqli_fetch_array($conprov);
+$ssecretaria=$fil['detsubsec'];$subs=$fil['subsec'];//mysqli_free_result($fil);
+$queryDG="select * from dirgenerales where issec='".$subs."';";
+$conprov=mysqli_query($conexion,$queryDG);
+$fil=@mysqli_fetch_array($conprov);
+$dgral=$fil['dirdetalle'];//mysqli_free_result($fil);
+$conprov=mysqli_query($conexion,$queryCabecera);
+$fil=@mysqli_fetch_array($conprov);
+$destino=$fil['destinomat'];
+$cuenta=$fil['cuenta'];
 
-$queryp="select a.razonsocial,a.cuit,a.domicilio,a.tel1,a.tel2,a.email,b.codpostal from acreedoreconomia a, acreedorcompensacion b where a.nroprov='".$id."' and a.nroprov=b.provcompe ;";
-$conprov=mysqli_query($conexion,$queryp);
-$fil=mysqli_fetch_array($conprov);
-$razon=$fil['razonsocial'];$cuit=$fil['cuit'];$domicilio=$fil['domicilio'];$tel1=$fil['tel1'];
-$tel2=$fil['tel2'];$email=$fil['email'];$cp=$fil['codpostal'];
+ echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+ echo "<tr>";
+ echo "<td align='center'><input type='button' class='nover' name='imprimir' value='IMPRIMIR'  onClick='window.print()'  ;/></td>";
+// echo "<td align='center'><input type='button' class='nover' align='center' name='salir' value='Salir' onClick='history.back()' ;/></td>";
+ echo "</tr>";
+ echo "</table>";
+ echo "<br></br>"; 
+ echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+ echo "<tr>";
+ echo "<td colspan='6' align='center'><img src='../images/FVhead2.jpg'/></td>";
+ echo "</tr>";
+ echo "</table>";
+ echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+ echo "<tr>";
+ echo "<strong><td align='center' colspan='6' style='font-size:30px'><b>SOLICITUD DE PEDIDOS DE MATERIALES</b></td></strong>";
+ echo "</tr>";
+ echo "</table>";
+ echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='1' align='center'>";
+ echo "<tr>";
+ echo "<strong><td align='center' colspan='4' style='font-size:20px'>INTERVENCION DE COMPRAS</td><td align='center' colspan='2' style='font-size:20px'>NUMERO:................................    |    FECHA:........./........./.........</td>
+  </strong>";echo "</tr>";
+ echo "</table>";
+ echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='1' align='center'>";
+ echo "<tr>"; 
+ echo "<td align='center'><b>Oficina Solicitante</b></td>";
+ echo "<td align='center'><b>Secretaria:</b></td>";
+ echo "<td align='center' ><b>".utf8_decode($secretaria)."</b></td>";
+ echo "<td align='center'><b>Sub-Secretaria:</b></td>";
+ echo "<td align='center' colspan='2'><b>".utf8_decode($ssecretaria)."</b></td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center'><b>Dccion Gral:</b></td>";
+ echo "<td align='center' colspan='5'><b>".utf8_decode($dgral)."</b></td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='2'><b>Destino de los Materiales:</b></td>";
+ echo "<td align='center' colspan='4'><b>".utf8_decode($destino)."</b></td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='2'><b>Cuenta Destino:</b></td>";
+ echo "<td align='center' colspan='4'><b>".utf8_decode($cuenta)."</b></td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center'><b>IMPUTACION/CODIGO DE OFIC.</b></td>";
+ echo "<td align='center'></td>";
+ echo "<td align='center' width='10'><b>PARTIDA/PRESUPUESTO</b></td>";
+ echo "<td align='center'></td>";
+ echo "<td align='center'><b>INTERVENCION/PRESUPUESTO</b></td>";
+ echo "<td align='center'  width='40'></td>";
+ echo "</tr>";
+ echo "</table>";
+return;
+}
+
+function pie($np,$idsol,$tmontof){
+$queryCabecera="select a.nropedido,a.aniopedido,a.estado,a.totalped,a.totalletra, a.idsolicitante,a.destinomat,a.cuenta from pedidomateriales a where (a.idsolicitante='".$idsol."') and (a.nropedido='".$np."');";
+$conexion=Conectarse();
+$conprov=mysqli_query($conexion,$queryCabecera);
+$fil=@mysqli_fetch_array($conprov);
+$totalletra=$fil['totalletra'];
+$nump=$fil['nropedido'];$anp=$fil['aniopedido'];
+ echo "<tr>";
+ echo "<td align='center'>Total:</td>";
+ echo "<td align='center' colspan='4'>".utf8_decode($totalletra)."</td>";
+ echo "<td align='right' colspan='1'>".chr(36).' '.number_format($tmontof,0,",",".")."</td>";
+ echo "</tr>";
+ echo "<tr>";
+ echo "<td align='left' colspan='2'>Pedido de Secretaria Nro:</td>";
+ echo "<td align='center' colspan='2'>".number_format($nump,0,",",".")."</td>";
+ echo "<td align='center' colspan='2'>".number_format($anp,0,",",".")."</td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='6' height='35'><b>AUTORIZACIONES</b></td>"; echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='2' height='35'><b>DIRECCION GENERAL</b></td>";
+ echo "<td align='center' colspan='2'><b>SUBSECRETARIA</b></td>";
+ echo "<td align='center' colspan='2'><b>SECRETARIA</b></td>";echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='2' height='35'></td>";
+ echo "<td align='center' colspan='2'></td>";
+ echo "<td align='center' colspan='2'></td>";echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='6' height='35'><b>INTERVENCION DIRECCION GRAL DE ADMINISTRACION-CORRESPONDE</b></td>"; echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' height='35'><b>COMPRA DIRECTA</b></td>";
+ echo "<td align='center' width='150'></td>";
+ echo "<td align='center'><b>CONCURSO PREVIO</b></td>";
+ echo "<td align='center' width='150'></td>";
+ echo "<td align='center'><b>LICITACION PRIVADA</b></td>";
+ echo "<td align='center' width='150'></td>";
+ echo "</tr>";
+ echo "<tr>"; 
+ echo "<td align='center' colspan='3' height='40'><b>AUTORIZACION SECRETARIA DE ECONOMIA</b></td>";
+ echo "<td align='center' colspan='3'></td>";
+ echo "</tr>";echo "</table>";return;
+}
+
+/*
+$queryS="select * from secretarias a where a.sec='".$idsol."';"; 
+$querySS="select * from subsecretarias where isec='".$idsol."' ;";
+
+$queryCabecera="select a.nropedido,a.aniopedido,a.estado,a.totalped,a.totalletra, a.idsolicitante,a.destinomat,a.cuenta from pedidomateriales a where (a.idsolicitante='".$idsol."') and (a.nropedido='".$np."');";
+$queryDetalle="select b.cantidad,b.importedetalle,b.detallepedido,b.idpedido,b.idrubro,b.idsubr
+from detallepedidomateriales b where (b.idsol='".$idsol."') and (b.idpedido='".$np."') ;";
+
+$conexion=Conectarse();
+/////////////////traigo las dependencias
+$conprov=mysqli_query($conexion,$queryS);
+$fil=@mysqli_fetch_array($conprov);
+$secretaria=$fil['detsec'];//mysqli_free_result($fil);
+$conprov=mysqli_query($conexion,$querySS);
+$fil=@mysqli_fetch_array($conprov);
+$ssecretaria=$fil['detsubsec'];$subs=$fil['subsec'];//mysqli_free_result($fil);
+$queryDG="select * from dirgenerales where issec='".$subs."';";
+$conprov=mysqli_query($conexion,$queryDG);
+$fil=@mysqli_fetch_array($conprov);
+$dgral=$fil['dirdetalle'];//mysqli_free_result($fil);
+$conprov=mysqli_query($conexion,$queryCabecera);
+$fil=@mysqli_fetch_array($conprov);
+$destino=$fil['destinomat'];$totalletra=$fil['totalletra'];
+$cuenta=$fil['cuenta'];$nump=$fil['nropedido'];$anp=$fil['aniopedido'];
 */
+$queryDetalle="select b.cantidad,b.importedetalle,b.detallepedido,b.idpedido,b.idrubro,b.idsubr
+from detallepedidomateriales b where (b.idsol='".$idsol."') and (b.idpedido='".$np."') ;";
 
-class PDF extends FPDF
-{
-// Cabecera de página
-function Header()
-{
+$conexion=Conectarse();
+$resu=mysqli_query($conexion,$queryDetalle);
+$row=mysqli_num_rows($resu);
+if($row>0)
+  { ?>
+    <style type="text/css" media="print">
+.nover {display:none}
+</style> 
+<?php
+   cabecera($np,$idsol);
+/*  echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+  echo "<tr>";
+  echo "<td align='center'><input type='button' class='nover' name='imprimir' value='IMPRIMIR'  onClick='window.print()'  ;/></td>";
+  echo "<td align='center'><input type='button' class='nover' align='center' name='salir' value='Salir' onClick='history.back()' ;/></td>";
+  echo "</tr>";
+  echo "</table>";
+   echo "<br></br>"; 
+  echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+  echo "<tr>";
+  echo "<td colspan='6' align='center'><img src='../images/FVhead2.jpg'/></td>";
+  echo "</tr>";
+  echo "</table>";
 
-    // Logo
- //   $this->Image('../images/pp.png',10,8,10,10);
-    // Arial bold 15
-    $this->SetFont('Arial','',7);
-    // Movernos a la derecha
-    //$this->Cell(80);
-   	
-//    $this->Cell(45);
-  //	 $this->Ln(7);
-}
-}
+  echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='0' align='center'>";
+  echo "<tr>";
+  echo "<strong><td align='center' colspan='6' style='font-size:30px'><b>SOLICITUD DE PEDIDOS DE MATERIALES</b></td></strong>";
+  echo "</tr>";
+  echo "</table>";
+	echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='1' align='center'>";
+	echo "<tr>";
+  echo "<strong><td align='center' colspan='4' style='font-size:20px'>INTERVENCION DE COMPRAS</td><td align='center' colspan='2' style='font-size:20px'>NUMERO:................................    |    FECHA:........./........./.........</td>
+  </strong>";echo "</tr>";
+  echo "</table>";
+
+  echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:15px' bgcolor='FDFEFE' border='1' align='center'>";
+  
+  echo "<tr>"; 
+  echo "<td align='center'><b>Oficina Solicitante</b></td>";
+  echo "<td align='center'><b>Secretaria:</b></td>";
+  echo "<td align='center' ><b>".utf8_decode($secretaria)."</b></td>";
+  echo "<td align='center'><b>Sub-Secretaria:</b></td>";
+  echo "<td align='center' colspan='2'><b>".utf8_decode($ssecretaria)."</b></td>";
+  echo "</tr>";
+  echo "<tr>"; 
+  echo "<td align='center'><b>Dccion Gral:</b></td>";
+  echo "<td align='center' colspan='5'><b>".utf8_decode($dgral)."</b></td>";
+  echo "</tr>";
+  echo "<tr>"; 
+  echo "<td align='center' colspan='2'><b>Destino de los Materiales:</b></td>";
+  echo "<td align='center' colspan='4'><b>".utf8_decode($destino)."</b></td>";
+  echo "</tr>";
+  echo "<tr>"; 
+  echo "<td align='center' colspan='2'><b>Cuenta Destino:</b></td>";
+  echo "<td align='center' colspan='4'><b>".utf8_decode($cuenta)."</b></td>";
+  echo "</tr>";
+  echo "<tr>"; 
+  echo "<td align='center'><b>IMPUTACION/CODIGO DE OFIC.</b></td>";
+  echo "<td align='center'></td>";
+  echo "<td align='center' width='10'><b>PARTIDA/PRESUPUESTO</b></td>";
+  echo "<td align='center'></td>";
+  echo "<td align='center'><b>INTERVENCION/PRESUPUESTO</b></td>";
+  echo "<td align='center'  width='40'></td>";
+  echo "</tr>";
+echo "</table>";
+*/ 
+  echo "<table width='85%'  cellspacing='0' cellpadding='0' style='font-size:12px; page-break-before: auto;' bgcolor='FDFEFE' border='1' align='center'>";
+  echo "<tr bgcolor='#CCCCCC'>";
+  echo "<td align='center'><b>Nro.</b></td>";
+  echo "<td align='center'><b>Rubro</b></td>";
+  echo "<td align='center'><b>Sub.Rubro</b></td>";
+	echo "<td align='center'><b>Cantidad</b></td>";
+	echo "<td align='center'><b>Descripcion de Bienes/Servicios</b></td>";
+	echo "<td align='center'><b>Importe Estimado $</b></td>";
+	echo "</tr>";
+ 
+   $conteo=1;$tmontof=0;
+    while ($row = mysqli_fetch_array($resu)){
+      echo "<tr>";
+      echo "<td align='right' >".number_format($conteo,0,",",".")."</td>";
+      echo "<td align='right' >".number_format($row['idrubro'],0,",",".")."</td>";
+      echo "<td align='right'>".number_format($row['idsubr'],0,",",".")."</td>";
+	    echo "<td align='right' >".number_format($row['cantidad'],0,",",".")."</td>";
+      echo "<td align='justify' width='750'>".utf8_decode($row['detallepedido'])."</td>";
+	    echo "<td align='right'>".chr(36).' '.number_format($row['importedetalle'],0,",",".")."</td>";
+	    echo "</tr>";
+      $conteo++;
+    $tmontof=$tmontof+$row['importedetalle'];
+	// aca colocar el tema del salto de pagina
+   /* if($conteo>3){
+      pie($np,$idsol,$tmontof);cabecera($np,$idsol);
+      $conteo=1;
+    }*/
+       }
+       pie($np,$idsol,$tmontof);
+	 /* 
+     echo "<tr>";
+     echo "<td align='center'>Total:</td>";
+     echo "<td align='center' colspan='4'>".utf8_decode($totalletra)."</td>";
+     echo "<td align='right' colspan='1'>".chr(36).' '.number_format($tmontof,0,",",".")."</td>";
+     echo "</tr>";
+     echo "<tr>";
+     echo "<td align='left' colspan='2'>Pedido de Secretaria Nro:</td>";
+     echo "<td align='center' colspan='2'>".number_format($nump,0,",",".")."</td>";
+     echo "<td align='center' colspan='2'>".number_format($anp,0,",",".")."</td>";
+     echo "</tr>";
+     echo "<tr>"; 
+    echo "<td align='center' colspan='6' height='35'><b>AUTORIZACIONES</b></td>"; echo "</tr>";
+    echo "<tr>"; 
+    echo "<td align='center' colspan='2' height='35'><b>DIRECCION GENERAL</b></td>";
+    echo "<td align='center' colspan='2'><b>SUBSECRETARIA</b></td>";
+    echo "<td align='center' colspan='2'><b>SECRETARIA</b></td>";echo "</tr>";
+    echo "<tr>"; 
+    echo "<td align='center' colspan='2' height='35'></td>";
+    echo "<td align='center' colspan='2'></td>";
+    echo "<td align='center' colspan='2'></td>";echo "</tr>";
+    echo "<tr>"; 
+    echo "<td align='center' colspan='6' height='35'><b>INTERVENCION DIRECCION GRAL DE ADMINISTRACION-CORRESPONDE</b></td>"; echo "</tr>";
+    echo "<tr>"; 
+  echo "<td align='center' height='35'><b>COMPRA DIRECTA</b></td>";
+  echo "<td align='center' width='150'></td>";
+  echo "<td align='center'><b>CONCURSO PREVIO</b></td>";
+  echo "<td align='center' width='150'></td>";
+  echo "<td align='center'><b>LICITACION PRIVADA</b></td>";
+  echo "<td align='center' width='150'></td>";
+  echo "</tr>";
+   echo "<tr>"; 
+  echo "<td align='center' colspan='3' height='40'><b>AUTORIZACION SECRETARIA DE ECONOMIA</b></td>";
+  echo "<td align='center' colspan='3'></td>";
+  
+  echo "</tr>";echo "</table>";
+    */
+	
+   $respuesta="";
+} else{
+    $respuesta="NO HAY PEDIDOS EFECTUADOS";
+    echo "<table width='100%'  cellspacing='0' cellpadding='0' style='font-size:20px' bgcolor='FDFEFE' border='1' align='center'>";
+    echo "<caption>DATOS DEL PEDIDO</caption>";
+    echo "<tr bgcolor='#CCCCCC'>";
+    echo "<td align='center'><b>Respuesta del Sistema</b></td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td>&nbsp;</td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td align='center'>".$respuesta."</td>";
+    echo "</tr>";  echo "</table>";
+    echo "<br></br>";
+    echo "<div align='center'><input class='btn btn-primary' type='button' value='Salir' onclick='history.back()'/></div>";
+} 
 
 
-// Creación del objeto de la clase heredada
-$pdf = new PDF();//hoja vertical
-//$pdf=new PDF('L','mm','A4');//hoja horizontal
-$pdf->AliasNbPages();
-$pdf->AddPage();
-$pdf->Cell(10,8,$pdf->Image('../images/pp.png'),8,8);
-$pdf->Cell(60,15,'Municipalidad de la Ciudad de Resistencia ',1,'T','C');
-$pdf->Cell(90,15,'SOLICITUD DE MATERIALES Y SERVICIOS',1,'T','C');
-$pdf->Cell(40,15,'NUMERO / FECHA',1,'T','C'); $pdf->Ln(15);
-$pdf->Cell(40,10,'IMPUTACION/CODIGO DE OFIC.',1,'T','C');
-$pdf->Cell(150,10,'Oficina Solicitante: ',1,'T','L'); $pdf->Ln(10);
-$pdf->Cell(40,10,'',1,'B','C');
-$pdf->Cell(150,10,'Destino de los Materiales:',1,'T','L');
-$pdf->Ln(10);
-$pdf->Cell(40,10,'Partida',1,'LR','C');
-$pdf->Cell(10,10,'Nro.',1,'T','C');$pdf->Cell(10,10,'Cant.',1,'T','C');
-$pdf->Cell(100,10,'DESCRIPCION DE BIENES/SERVICIOS ',1,'T','C');
-$pdf->Cell(30,10,'IMPORTE $ ',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
-$pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
- $pdf->Cell(40,10,'',1,'LR','C');
-$pdf->Cell(10,10,'',1,'T','C');$pdf->Cell(10,10,'',1,'T','C');
-$pdf->Cell(100,10,'',1,'T','C');
-$pdf->Cell(30,10,'',1,'T','C');
- $pdf->Ln(10);
+function obtenerPed($idsol){
+  $query2 = "SELECT nropedido,aniopedido FROM pedidomateriales where idsolicitante='".$idsol."' ORDER BY aniopedido desc, nropedido desc LIMIT 1"; 
+  $conexion2=Conectarse();$tot=0;
+  $rs2 =mysqli_query($conexion2,$query2);
+  $tot=mysqli_num_rows($rs2);
+   if ($tot!=0) {
+    $row=@mysqli_fetch_array($rs2);
+    $np = $row['nropedido'];
+      }else{$np=0;}
+    mysqli_free_result($rs2);  mysqli_close($conexion2);
+   return $np;
+ }
+////////////////////
 
-/*
-$queryD="SELECT * FROM acreenciacompensacion where (provcom='".$id."') and(imprimio='NO') ORDER BY idacompensa ASC;";
-$consulta = mysqli_query($conexion,$queryD);
-$tmontof=0.00;$conteo=0;	
-$pdf->SetFont('Times','B',10);
-while($fila = mysqli_fetch_array($consulta)){
-	$pdf->Cell(100,10,utf8_decode($fila['sujetop']),0,0,'C');
-    $pdf->Cell(50,10,utf8_decode($fila['tributop']),0,0,'C');
-    $pdf->Cell(40,10,number_format($fila['importep'],2,",","."),0,0,'R');
-    //$pdf->Cell(20,8,$fila['documento'],1,0,'C');
-    $pdf->Ln(5);$conteo++;
-    $tmontof=$tmontof+$fila['importep'];
-}
-
-//TOTALES
-$pdf->Ln(7);
-$pdf->SetFont('Times','B',10);
-$pdf->Cell(150,10,'Total Solicitado a Compensar $:',1,'T','C');
-$pdf->Cell(40,10,number_format($tmontof,2,",","."),1,'T','R');$pdf->Ln(10);
-$queryD2="SELECT documento FROM acreenciacompensacion where (provcom='".$id."') and(imprimio='NO') ORDER BY idacompensa ASC;";
-$consulta2 = mysqli_query($conexion,$queryD2);
-
-$pdf->Cell(200,10,'DOCUMENTACION APORTADA',0,0,'C'); $pdf->Ln(7);
-while($fila2 = mysqli_fetch_array($consulta2)){
-	$pdf->Cell(190,10,utf8_decode($fila2['documento']),0,0,'L');
-    $pdf->Ln(5);
-}
-
-$pdf->Ln(7); 
-$pdf->SetFont('Arial','',7);
-$pdf->Cell(0,8,utf8_decode('         Mediante la presente el interesado SOLICITA  a la MUNICIPALIDAD de RESISTENCIA la compensación de los tributos que se detallan con las deudas que el MUNICIPIO'),0,1,'L');
-$pdf->Cell(0,8,utf8_decode('          mantiene con el solicitante.Los sujetos pasivos aceptan el pago subrogado efectuado por el SOLICITANTE sujeto a compensación.'),0,1,'L');
-$pdf->Ln(10);$pdf->SetFont('Arial','',9);
-$pdf->Cell(90,10,'                             ____________',0,0,'L'); 
-$pdf->Cell(90,10,'__________________',0,0,'R');$pdf->Ln(10); 
-$pdf->Cell(90,10,'Firma del SOLICITANTE ',0,0,'C'); 
-$pdf->Cell(90,10,'Firma SUJETOS PASIVOS',0,0,'R'); 
-	*/
-
-
-
-$pdf->Output('Formulario de Pedido de Materiales','I');
-
-?>
+ ?>
