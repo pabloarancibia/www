@@ -9,7 +9,7 @@ $Nrosol=$_POST["NroSol"];
 
 //echo json_encode(array("nombres"=>$cuit, "domicilio"=>"dom"));
 
-$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '$NroSol'";
+$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '983362042422'";
 $datosProv = mysqli_query($conexion, $query) or die(mysql_error());
 
 if (mysqli_num_rows($datosProv)!=0){
@@ -61,11 +61,11 @@ if (mysqli_num_rows($datosProv)!=0){
     $documento_aut4 = $registro['documento_aut4'];
  }
   echo json_encode(array(
-"nombres"=>"si hay datos"));
+//"nombres"=>"si hay datos"));
     "nombres"=>$nombres,
     "domicilio"=>$domicilio,
     //"cuit"=>$cuit,
-    "email"=>$email)
+    "email"=>$email,
     "conv_multi"=>$conv_multi,
     "localidad"=>$localidad,
     "tel"=>$tel,
@@ -99,7 +99,7 @@ if (mysqli_num_rows($datosProv)!=0){
     "documento_aut2"=>$documento_aut2,
     "ap_aut3"=>$ap_aut3,
     "nom_aut3"=>$nom_aut3,
-    "cargo_aut3"=>$cargo_aut3
+    "cargo_aut3"=>$cargo_aut3,
     "tipo_doc_aut3"=>$tipo_doc_aut3,
     "documento_aut3"=>$documento_aut3,
     "ap_aut4"=>$ap_aut4,
@@ -108,11 +108,11 @@ if (mysqli_num_rows($datosProv)!=0){
     "tipo_doc_aut4"=>$tipo_doc_aut4,
     "documento_aut4"=>$documento_aut4
 
-    );
+    ));
 }else {
   echo json_encode(array(
-  "nombres"=>"no hay datos"//,
-  "domicilio"=>"no hay datos",
+  "nombres"=>"no hay datos",
+  "domicilio"=>"no hay datos"//,
   //"cuit"=>"no hay datos",
   //"email"=>"no hay datos"
 )

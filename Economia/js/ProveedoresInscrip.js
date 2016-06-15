@@ -207,10 +207,11 @@ $('#btAdd').removeAttr('disabled');
 $('#btAdd').attr('class', 'bt');
 
 });
-
+/////////////////////////////////////////////////////////////////////////////////////////
+//
 ////////////////////////PARTE AJAX MODIFICAR DATOS /////////////////////////////
 //
-//
+/////////////////////////////////////////////////////////////////////////////////////////
 $('#btnSigModif').click(function(){
 $.ajax({
 url: "../Logica/getdataCargarDatosPreIns.php",
@@ -218,13 +219,13 @@ type: "POST",
 dataType: "json",
 data: { NroSol: $("#NroSol").val() },
 success: function(data){
-//if (data.nombres){
+///if (data.nombres){
 alert("algo");
 $("#nombres").val(data.nombres);
 
-//}else{
-//$("#nombres").val("error");
-//}
+///}else{
+///$("#nombres").val("error");
+///}
 }
 });
 
