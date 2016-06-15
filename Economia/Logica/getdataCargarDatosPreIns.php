@@ -5,11 +5,11 @@ include "../Conexion/Conexion.php";
 }
 $conexion=Conectarse();
 
-$Nrosol=$_POST["NroSol"];
+$NroSol=$_POST["NroSol"];
 
 //echo json_encode(array("nombres"=>$cuit, "domicilio"=>"dom"));
 
-$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '983362042422'";
+$query = "SELECT * FROM proveedores WHERE txt_nro_solicitud = '$NroSol'";
 $datosProv = mysqli_query($conexion, $query) or die(mysql_error());
 
 if (mysqli_num_rows($datosProv)!=0){

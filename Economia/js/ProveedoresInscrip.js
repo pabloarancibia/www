@@ -219,13 +219,55 @@ type: "POST",
 dataType: "json",
 data: { NroSol: $("#NroSol").val() },
 success: function(data){
-///if (data.nombres){
+if (data.nombres){
 alert("algo");
 $("#nombres").val(data.nombres);
-
-///}else{
-///$("#nombres").val("error");
-///}
+$("#domicilio").val(data.domicilio);
+					$("#email").val(data.email);
+					$("#conv_multi").val(data.conv_multi);
+					$("#localidad").val(data.localidad);
+					$("#tel").val(data.tel);
+					$("#cp").val(data.cp);
+					$("#entidad").val(data.entidad);
+					$("#dtos_filiat").val(data.dtos_filiat);
+					$("#ap_pat").val(data.ap_pat);
+					$("#ap_mat").val(data.ap_mat);
+					$("#ap_interesado").val(data.ap_interesado);
+					$("#nom_interesado").val(data.nom_interesado);
+					$("#dni_int").val(data.dni_int);
+					$("#est_civil_int").val(data.est_civil_int);
+					$("#domicilio_int").val(data.domicilio_int);
+					$("#localidad_int").val(data.localidad_int);
+					$("#provincia_int").val(data.provincia_int);
+					$("#cp_int").val(data.cp_int);
+					$("#tel_int").val(data.tel_int);
+					$("#cel_int").val(data.cel_int);
+					$("#ap_cony").val(data.ap_cony);
+					$("#nom_cony").val(data.nom_cony);
+					$("#dni_cony").val(data.dni_cony);
+					$("#ap_aut").val(data.ap_aut);
+					$("#nom_aut").val(data.nom_aut);
+					$("#cargo_aut").val(data.cargo_aut);
+					$("#tipo_doc_aut").val(data.tipo_doc_aut);
+					$("#documento_aut").val(data.documento_aut);
+					$("#ap_aut2").val(data.ap_aut2);
+					$("#nom_aut2").val(data.nom_aut2);
+					$("#cargo_aut2").val(data.cargo_aut2);
+					$("#tipo_doc_aut2").val(data.tipo_doc_aut2);
+					$("#documento_aut2").val(data.documento_aut2);
+					$("#ap_aut3").val(data.ap_aut3);
+					$("#nom_aut3").val(data.nom_aut3);
+					$("#cargo_aut3").val(data.cargo_aut3);
+					$("#tipo_doc_aut3").val(data.tipo_doc_aut3);
+					$("#documento_aut3").val(data.documento_aut3);
+					$("#ap_aut4").val(data.ap_aut4);
+					$("#nom_aut4").val(data.nom_aut4);
+					$("#cargo_aut4").val(data.cargo_aut4);
+					$("#tipo_doc_aut4").val(data.tipo_doc_aut4);
+					$("#documento_aut4").val(data.documento_aut4);
+}else{
+$("#nombres").val("error");
+}
 }
 });
 
