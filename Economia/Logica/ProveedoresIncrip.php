@@ -107,7 +107,12 @@ $documento_aut4 = $_POST['documento_aut4'];
 //$descripcion2_rubro = $_POST['descripcion2_rubro'];
 
 //GENERAMOS EL NUMERO DE SOLICITUD AL AZAR
+//si es una modificacion el campo nrosol no estara vacio y le asignamos el mismo numero
+if (empty($_POST["NroSol"])){
 $txtSolicitud = generar_txtSolicitud(12);
+}else{
+$txtSolicitud=$_POST["NroSol"];
+}
 ///
 
 ///GENERAMOS LA CLAVE PARA validar
@@ -136,8 +141,10 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
   echo "problema rub".$_POST['txtRubro1'];
 }
  //Query
-
- //INSERT
+ //INSERT o UPDATE
+ // domicilio='".$domicilio."',
+ if (empty($_POST["NroSol"])){
+	
  $queryGuardar = " INSERT INTO proveedores ( nroProv,cuit, conv_multi, email, nombres, domicilio, localidad, tel, cp,
    entidad, dtos_filiat, ap_pat, ap_mat, ap_interesado,nom_interesado ,dni_int, est_civil_int, domicilio_int,
    localidad_int, provincia_int, cp_int, tel_int, cel_int, ap_cony,nom_cony, dni_cony,ap_aut,nom_aut, cargo_aut,
@@ -147,7 +154,43 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
    '$localidad_int', '$provincia_int', '$cp_int',
   '$tel_int', '$cel_int', '$ap_cony','$nom_cony','$dni_cony','$ap_aut','$nom_aut', '$cargo_aut',
   '$tipo_doc_aut', '$documento_aut','$txtSolicitud','$clave','$validado') ";
-
+}else{
+	$queryGuardar = "UPDATE proveedores SET
+	 nroProv='".$nroProv."', 
+	 cuit='".$cuit."', 
+	 conv_multi='".$conv_multi."', 
+	 email='".$email."', 
+	 nombres='".$nombres."', 
+	
+	 localidad='".$localidad."', 
+	 tel='".$tel."', 
+	 cp='".$cp."',
+   entidad='".$entidad."', 
+   dtos_filiat='".$dtos_filiat."', 
+   ap_pat='".$ap_pat."', 
+   ap_mat='".$ap_mat."', 
+   ap_interesado='".$ap_interesado."',
+   nom_interesado='".$nom_interesado."',
+   dni_int='".$dni_int."', 
+   est_civil_int='".$est_civil_int."', 
+   localidad_int='".$localidad_int."', 
+   provincia_int='".$provincia_int."', 
+   cp_int='".$cp_int."', 
+   tel_int='".$tel_int."', 
+   cel_int='".$cel_int."', 
+   ap_cony='".$ap_cony."',
+   nom_cony='".$nom_cony."', 
+   dni_cony='".$dni_cony."',
+   ap_aut='".$ap_aut."',
+   nom_aut='".$nom_aut."', 
+   cargo_aut='".$cargo_aut."',
+   tipo_doc_aut='".$tipo_doc_aut."', 
+   documento_aut='".$documento_aut."',
+   txt_nro_solicitud='".$txtSolicitud."',
+   txt_activ='".$clave."',
+   validado='".$validado."'
+   WHERE txt_nro_solicitud = $txtSolicitud ";
+}
 ///////////////////////////////////////////////////////////
   //llamo a queryGuardar
 $conexion = Conectarse();
@@ -167,7 +210,7 @@ if (mysqli_query($conexion,$queryGuardar)){
 
   $respuesta = "SE ENVIARON LOS DATOS A ".$destinatarios.", REVISE SU CUENTA DE MAIL PARA VALIDAR";
 }else{
-  $respuesta="ERROR EN LA CARGA DE DATOS";
+  $respuesta="ERROR EN LA CARGA DE DATOS".mysqli_error($conexion);
   //.mysqli_error($conexion)
 
 }
