@@ -220,9 +220,8 @@ dataType: "json",
 data: { NroSol: $("#NroSol").val() },
 success: function(data){
 if (data.nombres){
-alert("algo");
-$("#nombres").val(data.nombres);
-$("#domicilio").val(data.domicilio);
+alert("Por serguridad, deberá volver a ingresar CUIT y DOMICILIOS");
+					$("#nombres").val(data.nombres);
 					$("#email").val(data.email);
 					$("#conv_multi").val(data.conv_multi);
 					$("#localidad").val(data.localidad);
@@ -236,7 +235,6 @@ $("#domicilio").val(data.domicilio);
 					$("#nom_interesado").val(data.nom_interesado);
 					$("#dni_int").val(data.dni_int);
 					$("#est_civil_int").val(data.est_civil_int);
-					$("#domicilio_int").val(data.domicilio_int);
 					$("#localidad_int").val(data.localidad_int);
 					$("#provincia_int").val(data.provincia_int);
 					$("#cp_int").val(data.cp_int);
@@ -265,6 +263,23 @@ $("#domicilio").val(data.domicilio);
 					$("#cargo_aut4").val(data.cargo_aut4);
 					$("#tipo_doc_aut4").val(data.tipo_doc_aut4);
 					$("#documento_aut4").val(data.documento_aut4);
+					
+
+					//CARGAR RUBROS 
+//ESTE DIV DEBO CREARLO EN EL LUGAR Q CORRESPONDA
+var container = $(document.createElement('div'));
+					
+//RECORRER UN ARRAY Q CON LOS DATOS DE LA TABLA (PHP)
+var  valRubro = $('#rr').val();
+var textRubro = $( "#rr option:selected" ).text();
+var  valSubRubro = $('#srr').val();
+var textSubRubro = $( "#srr option:selected" ).text();
+$(container).append('<input type="hidden" class="txtRubros" name="txtRubro1[]" id=txtRubro1'+' ' +
+'value="'+valRubro+'"><label class="lblRubros">Rubro: '+textRubro+'</label>');
+$(container).append('<input type="hidden" class="txtSubRubros" name="txtSubRubro1[]" id=txtSubRubro1' + ' ' +
+'value="'+valSubRubro+'"><label class="lblSubRubros">Sub-Rubro: '+textSubRubro+'</label><br /><br />');
+//FIN CARGAR RUBROS 
+
 }else{
 $("#nombres").val("error");
 }

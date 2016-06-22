@@ -14,11 +14,11 @@ $datosProv = mysqli_query($conexion, $query) or die(mysql_error());
 
 if (mysqli_num_rows($datosProv)!=0){
   while ($registro = mysqli_fetch_array($datosProv)) {
-    //$cuit = $registro['cuit'];
+	$nroProv = $registro['nroProv'];
     $nombres = $registro['nombres'];
     $domicilio = $registro['domicilio'];
-  $conv_multi = $registro['conv_multi'];
-  $email = $registro['email'];
+    $conv_multi = $registro['conv_multi'];
+    $email = $registro['email'];
     $localidad = strtoupper($registro['localidad']);
     $tel = $registro['tel'];
     $cp = $registro['cp'];
@@ -59,12 +59,20 @@ if (mysqli_num_rows($datosProv)!=0){
     $cargo_aut4 = $registro['cargo_aut4'];
     $tipo_doc_aut4 = $registro['tipo_doc_aut4'];
     $documento_aut4 = $registro['documento_aut4'];
- }
+ }//fin while
+ $queryRubros="SELECT * FROM rel_prov_rubros_sub WHERE id_proveedor = '$nroProv'"
+ $datosRubros = mysqli_query($conexion, $queryRubros) or die(mysql_error());
+ if (mysqli_num_rows($datosRubros)!=0){
+  while ($reg = mysqli_fetch_array($datosRubros)) {
+	$id_rubro = $reg['id_rubro'];//en teoria estoy cargando un array
+	$id_subrubro = $reg['id_subrubro'];//en teoria estoy cargando un array
+	}//fin while
+	}//fin if
+ 
+ 
   echo json_encode(array(
-//"nombres"=>"si hay datos"));
     "nombres"=>$nombres,
     "domicilio"=>$domicilio,
-    //"cuit"=>$cuit,
     "email"=>$email,
     "conv_multi"=>$conv_multi,
     "localidad"=>$localidad,
@@ -106,7 +114,9 @@ if (mysqli_num_rows($datosProv)!=0){
     "nom_aut4"=>$nom_aut4,
     "cargo_aut4"=>$cargo_aut4,
     "tipo_doc_aut4"=>$tipo_doc_aut4,
-    "documento_aut4"=>$documento_aut4
+    "documento_aut4"=>$documento_aut4,
+	"id_rubro"=>$id_rubro,//en teoria paso el array
+	"id_subrubro"=>$id_subrubro//en teoria paso el array
 
     ));
 }else {

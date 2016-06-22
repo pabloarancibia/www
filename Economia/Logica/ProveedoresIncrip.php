@@ -161,7 +161,7 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
 	 conv_multi='".$conv_multi."', 
 	 email='".$email."', 
 	 nombres='".$nombres."', 
-	
+	 domicilio='".$domicilio."',
 	 localidad='".$localidad."', 
 	 tel='".$tel."', 
 	 cp='".$cp."',
@@ -173,6 +173,7 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
    nom_interesado='".$nom_interesado."',
    dni_int='".$dni_int."', 
    est_civil_int='".$est_civil_int."', 
+   domicilio_int='".$domicilio_int."',
    localidad_int='".$localidad_int."', 
    provincia_int='".$provincia_int."', 
    cp_int='".$cp_int."', 
