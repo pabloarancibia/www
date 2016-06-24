@@ -67,6 +67,29 @@ if (mysqli_num_rows($datosProv)!=0){
 	$id_rubro = $reg['id_rubro'];//en teoria estoy cargando un array
 	$id_subrubro = $reg['id_subrubro'];//en teoria estoy cargando un array
 	}//fin while
+	
+		//ahora query para traer el nombre del rubro y sub segun su id
+		foreach ($id_rubro as $id_rubroActual){
+			$queryDescripRub="SELECT * FROM rubros WHERE rubro = '$id_rubroActual'"
+			$qdescRubros = mysqli_query($conexion, $queryDescripRub) or die(mysql_error());
+			if (mysqli_num_rows($qdescRubros)!=0){
+				while ($reg = mysqli_fetch_array($qdescRubros)) {
+				$descRubros = $reg['rubrodesc'];//
+				}//fin while
+			}
+		
+		}
+		
+		foreach ($id_subrubro as $id_subrubroActual){
+			$queryDescripsubRub="SELECT * FROM subrubros WHERE subrubro = '$id_subrubroActual'"
+			$qdescsubRubros = mysqli_query($conexion, $queryDescripsubRub) or die(mysql_error());
+			if (mysqli_num_rows($qdescsubRubros)!=0){
+				while ($reg = mysqli_fetch_array($qdescsubRubros)) {
+				$descsubRubros = $reg['subrubdesc'];//
+				}//fin while
+			}
+		
+		}
 	}//fin if
  
  
@@ -117,8 +140,10 @@ if (mysqli_num_rows($datosProv)!=0){
     "documento_aut4"=>$documento_aut4,
 	"id_rubro"=>$id_rubro,//en teoria paso el array
 	"id_subrubro"=>$id_subrubro//en teoria paso el array
-
-    ));
+	"descRubros"=>$descRubros//en teoria paso el array
+	"descsubRubros"=>$descsubRubros//en teoria paso el array
+    ));//fin array json 
+	
 }else {
   echo json_encode(array(
   "nombres"=>"no hay datos",
