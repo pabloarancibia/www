@@ -263,26 +263,8 @@ alert("Por serguridad, deberá volver a ingresar CUIT y DOMICILIOS");
 					$("#cargo_aut4").val(data.cargo_aut4);
 					$("#tipo_doc_aut4").val(data.tipo_doc_aut4);
 					$("#documento_aut4").val(data.documento_aut4);
-					
 
-					//CARGAR RUBROS 
-					//ESTE DIV DEBO CREARLO EN EL LUGAR Q CORRESPONDA
-					var container = $(document.createElement('div'));
-					
-					//RECORRER UN ARRAY Q CON LOS DATOS DE LA TABLA (PHP)
-					var  valRubro = data.id_rubro; //$('#rr').val();
-					var textRubro = data.descRubros; //$( "#rr option:selected" ).text();
-					var  valSubRubro = data.id_subrubro; //$('#srr').val();
-					var textSubRubro = data.descsubRubros; // $( "#srr option:selected" ).text();
-
-					 for (i in valRubro){
-					 $(container).append('<input type="hidden" class="txtRubros" name="txtRubro1[]" id=txtRubro1'+' ' +
-					 'value="'+valRubro[i]+'"><label class="lblRubros">Rubro: '+textRubro[i]+'</label>');
-					 $(container).append('<input type="hidden" class="txtSubRubros" name="txtSubRubro1[]" id=txtSubRubro1' + ' ' +
-					 'value="'+valSubRubro[i]+'"><label class="lblSubRubros">Sub-Rubro: '+textSubRubro[i]+'</label><br /><br />');
-					 }//fin for
-					//FIN CARGAR RUBROS 
-
+					//$("#pruebaRubros").html(data);
 }else{
 $("#nombres").val("error");
 }

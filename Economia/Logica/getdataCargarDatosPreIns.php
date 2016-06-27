@@ -64,11 +64,50 @@ if (mysqli_num_rows($datosProv)!=0){
  $datosRubros = mysqli_query($conexion, $queryRubros) or die(mysql_error());
  if (mysqli_num_rows($datosRubros)!=0){
   while ($reg = mysqli_fetch_array($datosRubros)) {
-	$id_rubro = $reg['id_rubro'];//en teoria estoy cargando un array
-	$id_subrubro = $reg['id_subrubro'];//en teoria estoy cargando un array
+	$id_rubro = $reg['id_rubro'];//
+	$id_subrubro = $reg['id_subrubro'];//
+
+  $queryDescripRub="SELECT * FROM rubros WHERE rubro = '$id_rubro'";
+  $qdescRubros = mysqli_query($conexion, $queryDescripRub) or die(mysql_error());
+  if (mysqli_num_rows($qdescRubros)!=0){
+     $descRubros = mysqli_fetch_array($qdescRubros);//
+   }//fin if
+
+   $queryDescripsubRub="SELECT * FROM subrubros WHERE subrubro = '$id_subrubro'";
+   $qdescsubRubros = mysqli_query($conexion, $queryDescripsubRub) or die(mysql_error());
+   if (mysqli_num_rows($qdescsubRubros)!=0){
+     $descsubRubros['subrubdesc'] = mysqli_fetch_array($qdescsubRubros);//
+   }//fin if
+/*
+   /////////////////IMPRIMIR RUBROS
+   //ESTE DIV DEBO CREARLO EN EL LUGAR Q CORRESPONDA
+   var container = $(document.createElement('div'));
+
+   //RECORRER UN ARRAY Q CON LOS DATOS DE LA TABLA (PHP)
+   var  valRubro = data.id_rubro; //$('#rr').val();
+   var textRubro = data.descRubros; //$( "#rr option:selected" ).text();
+   var  valSubRubro = data.id_subrubro; //$('#srr').val();
+   var textSubRubro = data.descsubRubros; // $( "#srr option:selected" ).text();
+
+    for (i in valRubro){
+    $(container).append('<input type="hidden" class="txtRubros" name="txtRubro1[]" id=txtRubro1'+' ' +
+    'value="'+valRubro[i]+'"><label class="lblRubros">Rubro: '+textRubro[i]+'</label>');
+    $(container).append('<input type="hidden" class="txtSubRubros" name="txtSubRubro1[]" id=txtSubRubro1' + ' ' +
+    'value="'+valSubRubro[i]+'"><label class="lblSubRubros">Sub-Rubro: '+textSubRubro[i]+'</label><br /><br />');
+    }//fin for
+*/
+/*
+echo '<input type="hidden" class="txtRubros" name="txtRubro1[]" id=txtRubro1'.' ' .
+'value="'.$id_rubro[0].'"><label class="lblRubros">Rubro: '.$descRubros[2].'</label>';
+echo '<input type="hidden" class="txtSubRubros" name="txtSubRubro1[]" id=txtSubRubro1' . ' ' .
+'value="'.$id_subrubro[0].'"><label class="lblSubRubros">Sub-Rubro: '.$descsubRubros['subrubdesc'][2].'</label><br /><br />';
+*/
+   ///////////////////FIN IMPRIMIR RUBROS
+
 	}//fin while
-	
-		//ahora query para traer el nombre del rubro y sub segun su id
+
+    /*
+    //ahora query para traer el nombre del rubro y sub segun su id
 		foreach ($id_rubro as $id_rubroActual){
 			$queryDescripRub="SELECT * FROM rubros WHERE rubro = '$id_rubroActual'";
 			$qdescRubros = mysqli_query($conexion, $queryDescripRub) or die(mysql_error());
@@ -77,9 +116,9 @@ if (mysqli_num_rows($datosProv)!=0){
 				$descRubros = $reg['rubrodesc'];//
 				}//fin while
 			}
-		
-		}
-		
+
+		}//fin foreach
+
 		foreach ($id_subrubro as $id_subrubroActual){
 			$queryDescripsubRub="SELECT * FROM subrubros WHERE subrubro = '$id_subrubroActual'";
 			$qdescsubRubros = mysqli_query($conexion, $queryDescripsubRub) or die(mysql_error());
@@ -88,11 +127,12 @@ if (mysqli_num_rows($datosProv)!=0){
 				$descsubRubros = $reg['subrubdesc'];//
 				}//fin while
 			}
-		
-		}
+
+		}// fin foreach
+    */
 	}//fin if
- 
- 
+
+
   echo json_encode(array(
     "nombres"=>$nombres,
     "domicilio"=>$domicilio,
@@ -138,12 +178,12 @@ if (mysqli_num_rows($datosProv)!=0){
     "cargo_aut4"=>$cargo_aut4,
     "tipo_doc_aut4"=>$tipo_doc_aut4,
     "documento_aut4"=>$documento_aut4,
-	"id_rubro"=>$id_rubro,//en teoria paso el array
-	"id_subrubro"=>$id_subrubro,//en teoria paso el array
-	"descRubros"=>$descRubros,//en teoria paso el array
-	"descsubRubros"=>$descsubRubros//en teoria paso el array
-    ));//fin array json 
-	
+	//"id_rubro"=>$id_rubro,//en teoria paso el array
+	//"id_subrubro"=>$id_subrubro,//en teoria paso el array
+	//"descRubros"=>$descRubros,//en teoria paso el array
+	//"descsubRubros"=>$descsubRubros//en teoria paso el array
+    ));//fin array json
+
 }else {
   echo json_encode(array(
   "nombres"=>"no hay datos",
@@ -153,4 +193,5 @@ if (mysqli_num_rows($datosProv)!=0){
 )
 );
 }
+mysqli_close($conexion);
 ?>
