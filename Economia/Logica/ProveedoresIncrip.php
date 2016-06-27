@@ -121,6 +121,12 @@ $clave = generar_txtAct(30);//,'false');
 $validado='no';
 global $url;
 $url = "http://localhost/Economia/views/activarproveedor.php?id=".$clave;
+//
+//limpio rel_prov_rubros_sub
+$conexion = Conectarse();
+$qlimpiar = "DELETE FROM rel_prov_rubros_sub WHERE id_proveedor = $nroProv";
+mysqli_query($conexion,$qlimpiar)or die(mysqli_error($conexion));
+mysqli_close($conexion)or die(mysqli_error($conexion));;;
 // QUERY GUARDAR RUBRO y SUB EN TABLA
 if (!empty($_POST['txtRubro1'])){
    $i=0;
@@ -144,7 +150,7 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
  //INSERT o UPDATE
  // domicilio='".$domicilio."',
  if (empty($_POST["NroSol"])){
-	
+
  $queryGuardar = " INSERT INTO proveedores ( nroProv,cuit, conv_multi, email, nombres, domicilio, localidad, tel, cp,
    entidad, dtos_filiat, ap_pat, ap_mat, ap_interesado,nom_interesado ,dni_int, est_civil_int, domicilio_int,
    localidad_int, provincia_int, cp_int, tel_int, cel_int, ap_cony,nom_cony, dni_cony,ap_aut,nom_aut, cargo_aut,
@@ -156,36 +162,36 @@ mysqli_close($conexion)or die(mysqli_error($conexion));;
   '$tipo_doc_aut', '$documento_aut','$txtSolicitud','$clave','$validado') ";
 }else{
 	$queryGuardar = "UPDATE proveedores SET
-	 nroProv='".$nroProv."', 
-	 cuit='".$cuit."', 
-	 conv_multi='".$conv_multi."', 
-	 email='".$email."', 
-	 nombres='".$nombres."', 
+	 nroProv='".$nroProv."',
+	 cuit='".$cuit."',
+	 conv_multi='".$conv_multi."',
+	 email='".$email."',
+	 nombres='".$nombres."',
 	 domicilio='".$domicilio."',
-	 localidad='".$localidad."', 
-	 tel='".$tel."', 
+	 localidad='".$localidad."',
+	 tel='".$tel."',
 	 cp='".$cp."',
-   entidad='".$entidad."', 
-   dtos_filiat='".$dtos_filiat."', 
-   ap_pat='".$ap_pat."', 
-   ap_mat='".$ap_mat."', 
+   entidad='".$entidad."',
+   dtos_filiat='".$dtos_filiat."',
+   ap_pat='".$ap_pat."',
+   ap_mat='".$ap_mat."',
    ap_interesado='".$ap_interesado."',
    nom_interesado='".$nom_interesado."',
-   dni_int='".$dni_int."', 
-   est_civil_int='".$est_civil_int."', 
+   dni_int='".$dni_int."',
+   est_civil_int='".$est_civil_int."',
    domicilio_int='".$domicilio_int."',
-   localidad_int='".$localidad_int."', 
-   provincia_int='".$provincia_int."', 
-   cp_int='".$cp_int."', 
-   tel_int='".$tel_int."', 
-   cel_int='".$cel_int."', 
+   localidad_int='".$localidad_int."',
+   provincia_int='".$provincia_int."',
+   cp_int='".$cp_int."',
+   tel_int='".$tel_int."',
+   cel_int='".$cel_int."',
    ap_cony='".$ap_cony."',
-   nom_cony='".$nom_cony."', 
+   nom_cony='".$nom_cony."',
    dni_cony='".$dni_cony."',
    ap_aut='".$ap_aut."',
-   nom_aut='".$nom_aut."', 
+   nom_aut='".$nom_aut."',
    cargo_aut='".$cargo_aut."',
-   tipo_doc_aut='".$tipo_doc_aut."', 
+   tipo_doc_aut='".$tipo_doc_aut."',
    documento_aut='".$documento_aut."',
    txt_nro_solicitud='".$txtSolicitud."',
    txt_activ='".$clave."',
