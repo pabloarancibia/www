@@ -1,0 +1,173 @@
+<?php
+if(!isset($_SESSION))
+{
+    session_start();
+}
+if (!isset($_SESSION["apynom"])){
+    header("Location:../views/frmMenuUsuarios.php?nologin=false");
+	$_SESSION["apynom"]="test";
+	}
+$_SESSION["apynom"];
+if (!function_exists('Conectarse')) {
+include "../Conexion/Conexion.php";
+}
+$conexion=Conectarse();
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+<title>Listado Proveedores</title>
+<link rel="stylesheet" type="text/css" href="../css/estilo.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.min.css">
+<link href='../images/icono.png' rel='shortcut icon' type='image/jpg'/>
+<script src="../js/jquery-latest.js" type="text/javascript"></script>
+<script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../js/pedmatmod.js"  type="text/javascript"></script>
+<!--script src="../js/ajaxpedmat.js" type="text/javascript"></script-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="js/html5.js"></script>
+<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
+        <![endif]-->
+</head>
+<body class="body" style=" background-image: url(../images/bgcity.jpg);
+  background-attachment: fixed;">
+   <!--========header==========================-->
+<header>
+<table width="100%" height="120" border="0" background="../images/header2015.jpg">
+<tr><td width="40%"></td>
+<td><div align="left" style="color:#ffffff;" ><p><h2>SECRETARIA DE ECONOMIA</h2></p>
+ </div></td>
+</tr>
+<tr><td width="40%"></td>
+<td><div align="left" style="color:#ffffff;" ><p><h4>USUARIO:<?php echo $_SESSION["apynom"]?></h4></p>
+ </div></td>
+ <td><div align="left" style="color:#ffffff;" >
+<p><h5>
+ <script languaje="JavaScript"> 
+var mydate=new Date() 
+var year=mydate.getYear() 
+if (year < 1000) 
+year+=1900 
+var day=mydate.getDay() 
+var month=mydate.getMonth() 
+var daym=mydate.getDate() 
+if (daym<10) 
+daym="0"+daym 
+var dayarray=new Array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado") 
+var montharray=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre") 
+document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+daym+" de "+montharray[month]+" de "+year+"</font></small>") 
+</script> 
+</h5></p></div></td>
+</tr></table>
+
+ <nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="collapse navbar-collapse" id="navbar-1">
+ <ul class="nav navbar-nav">
+ <li class="dropdown">
+   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">INICIO<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+    <li><a href="../views/frmMenuUsuarios.php">Página Principal</a></li>
+   </ul></li></ul>
+ </div></div>
+ </nav>
+ </header>
+ 
+<!----------------------------------------------------------- -->
+<div class="container" 
+style="background-color:#E6E6E6;border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 20px solid #ffffff;">
+<div class="registros" id="agrega-registros">
+	<table class="table table-striped table-condensed table-hover">
+	<tr>
+	<th width="50" align="center">Nro PROVEEDOR</th>
+	<th width="50" align="center">CUIT</th>
+	<th width="50" align="center">CONVENIO Nro</th>
+	<th width="50" align="center">EMAIL</th>
+	<th width="50" align="center">NOMBRES</th>
+	<th width="50" align="center">DOMICILIO</th>
+	<th width="50" align="center">LOCALIDAD</th>
+	<th width="50" align="center">TEL</th>
+	<th width="50" align="center">CP</th>
+	<th width="50" align="center">ENTIDAD</th>
+	<th width="50" align="center">DATOS FILIATORIOS</th>
+	<th width="50" align="center">AP PATERNO</th>
+	<th width="50" align="center">AP MATERNO</th>
+	<th width="50" align="center">APELLIDO</th>
+	<th width="50" align="center">DNI</th>
+	<th width="50" align="center">ESTADO CIVIL</th>
+	<th width="50" align="center">DOMICILIO</th>
+	<th width="50" align="center">LOCALIDAD</th>
+	<th width="50" align="center">PROVINCIA</th>
+	<th width="50" align="center">CODIGO POSTAL</th>
+	<th width="50" align="center">TELEFONO</th>
+	<th width="50" align="center">CELULAR</th>
+	<th width="50" align="center">AP CONYUGUE</th>
+	<th width="50" align="center">NOM CONYUGUE</th>
+	<th width="50" align="center">DNI CONYUGUE</th>
+	<th width="50" align="center">AP AUT</th>
+	<th width="50" align="center">NOM AUT</th>
+	<th width="50" align="center">CARGO AUT</th>
+	<th width="50" align="center">DNI AUT</th>
+	<th width="50" align="center">VALIDADO POR EMAIL</th>
+	</tr>
+	<tr><?php
+	while($registro2 = mysqli_fetch_array($resu)){
+    echo '<tr>
+            <td>'.$registro2['nroProv'].'</td>
+            <td>'.$registro2['cuit'].'</td>
+            <td>'.$registro2['conv_multi'].'</td>
+			<td>'.$registro2['email'].'</td>
+			<td>'.$registro2['nombres'].'</td>
+			<td>'.$registro2['domicilio'].'</td>
+			<td>'.$registro2['localidad'].'</td>
+			<td>'.$registro2['tel'].'</td>
+			<td>'.$registro2['cp'].'</td>
+			<td>'.$registro2['entidad'].'</td>
+			<td>'.$registro2['dtos_filiat'].'</td>
+			<td>'.$registro2['ap_pat'].'</td>
+			<td>'.$registro2['ap_mat'].'</td>
+			<td>'.$registro2['ap_interesado'].'</td>
+			<td>'.$registro2['nom_interesado'].'</td>
+			<td>'.$registro2['dni_int'].'</td>
+			<td>'.$registro2['est_civil_int'].'</td>
+			<td>'.$registro2['domicilio_int'].'</td>
+			<td>'.$registro2['localidad_int'].'</td>
+			<td>'.$registro2['provincia_int'].'</td>
+			<td>'.$registro2['cp_int'].'</td>
+			<td>'.$registro2['tel_int'].'</td>
+			<td>'.$registro2['cel_int'].'</td>
+			<td>'.$registro2['ap_cony'].'</td>
+			<td>'.$registro2['nom_cony'].'</td>
+			<td>'.$registro2['dni_cony'].'</td>
+			<td>'.$registro2['ap_aut'].'</td>
+			<td>'.$registro2['nom_aut'].'</td>
+			<td>'.$registro2['cargo_aut'].'</td>
+			<td>'.$registro2['documento_aut'].'</td>
+			<td>'.$registro2['validado'].'</td>
+          </tr>';        
+	}?>
+        </table>
+</div><!-- fin div registros -->
+
+
+</div><!-- fin div container -->
+<!--==============================footer=================================-->
+<small> 
+<div class="col-md-12" align="center" style="background-color:#151515;color:#ffffff; font-family:Arial;font-size:8pt;">
+    <p>Municipalidad de Resistencia-Av. Italia Nº 150<br />
+    Telefono de Informes: (362) 4458201</p>
+    <p>Todos los derechos reservados &copy; 2016-Se permite la reproduccion del contenido citando la fuente
+    </p>
+  </div>
+</small>
+</body>  
+</html>
