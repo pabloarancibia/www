@@ -85,10 +85,24 @@ style="background-color:#E6E6E6;border-radius: 10px 10px 10px 10px;
 -moz-border-radius: 10px 10px 10px 10px;
 -webkit-border-radius: 10px 10px 10px 10px;
 border: 20px solid #ffffff;">
+<div class="filtro">
+<form id="frm_filtro" method="post" action="">
+				<ul>
+                   <li><label>CUIT:</label> <input type="text" name="cuit" size="25" /></li>
+                    <li>
+                    	<button type="button" id="btnfiltrar">Filtrar</button>
+                    </li>                
+                    <li>
+                    	<a href="javascript:;" id="btncancel">Todos</a>
+                    </li>
+                </ul>
+</form>
+
+</div><!-- fin div filtro -->
 <div class="registros" id="agrega-registros">
-	<table class="table table-striped table-condensed table-hover">
+	<table class="table table-striped table-condensed table-hover" id="data">
 	<tr>
-	<th width="50" align="center">Nro PROVEEDOR</th>
+	<th width="50" align="center"><span title="nroProv">Nro PROVEEDOR</span></th>
 	<th width="50" align="center">CUIT</th>
 	<th width="50" align="center">CONVENIO Nro</th>
 	<th width="50" align="center">EMAIL</th>
