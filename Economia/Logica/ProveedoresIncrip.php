@@ -14,7 +14,7 @@ if(empty($_POST['nroProv'])){
 // $nroProv = BuscarNumProv();
 //SI ESTA VACIO NROPROV LE ASIGNO el numero de dni PARA SABER Q ES UN PROV NO INSCRIPTO
 //Y LUEGO DEBEREMOS VERIFICAR SI TIENE HABILITACION MUNICIPAL O NO
-$nroProv=$_POST['cuit2'];
+$nroProv=$_POST['dni_int'];
 }else {
   //si no esta vacio es porque el usuario tiene num prov y lo ingreso
   $nroProv = $_POST['nroProv'];

@@ -78,6 +78,8 @@ if (mysqli_num_rows($resultado)!=0){
   $documento_aut4 =  $registro['documento_aut4'];
   $txt_nro_solicitud = $registro['txt_nro_solicitud'];
   }//fin while
+  if ($nroProv == $dni_int) 
+  {$nroProv="--";}
 }//fin if
 
 
@@ -169,7 +171,7 @@ $this->SetFont('Arial','I',8);
 /****************************************************************************/
 
 /* Creamos un nuevo objeto PDFAutoPrint que nos da la funcionalidad de imprimir y tambien las basicas de FPDF */
-/*************** Construimos la factura ************************/
+/*************** Construimos el form ************************/
 //http://www.desarrolloweb.com/articulos/pie-cabecera-fpdf.html
 $pdf = new PDF_AutoPrint();
 $pdf->SetFont('courier','B',18);

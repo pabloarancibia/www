@@ -52,26 +52,7 @@ $('#form1').validate({
 });
 */
 ////////////////////////FIN PARTE MODAL CONFIRMACION ENVIO FORMULARIO////////////////////////////////////
-///////////////////////////// PARTE VERIFICAR CUIT NO REPETIDO ////////////////////////////
 
-$('#cuit3').blur(function(){
-
-	$('#Info').html('<img src="../images/loading.gif" alt="loading" width="32px" height="32px" />').fadeOut(1000);
-
-	var cuit = $('#cuit1').val()+$('#cuit2').val()+$('#cuit3').val();
-	var dataString = 'cuit='+cuit;
-
-	$.ajax({
-					type: "POST",
-					url: "../Logica/check_cuit_availablity.php",
-					data: dataString,
-					success: function(data) {
-			$('#Info').fadeIn(1000).html(data);
-			//alert(data);
-					}
-			});
-	});
-//////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////PARTE VALIDAR FORMULARIO/////////////////
 function verificar(){
@@ -120,16 +101,38 @@ $('#prov-obligatorio').hide();
 
 $('#divNumSolicitud').hide();
 
+//PARTE SELECCIONAR OPERACION: PRE INSCRIPCION - RE INSCRIPCION - MODIFICACION
 $('#consultaProvSi').click(function(){
   $('#consultaProv').hide('slow');
   $('#datos').show('slow');
   $('#nroProv').show('slow');
   $('#lblNroProv').show('slow');
 	$('#prov-obligatorio').show('slow');
+	
 });
 $('#consultaProvNo').click(function(){
   $('#consultaProv').hide('slow');
   $('#datos').show('slow');
+  ///////////////////////////// PARTE VERIFICAR CUIT NO REPETIDO ////////////////////////////
+
+	$('#cuit3').blur(function(){
+
+		$('#Info').html('<img src="../images/loading.gif" alt="loading" width="32px" height="32px" />').fadeOut(1000);
+
+		var cuit = $('#cuit1').val()+$('#cuit2').val()+$('#cuit3').val();
+		var dataString = 'cuit='+cuit;
+
+		$.ajax({
+					type: "POST",
+					url: "../Logica/check_cuit_availablity.php",
+					data: dataString,
+					success: function(data) {
+			$('#Info').fadeIn(1000).html(data);
+			//alert(data);
+					}
+			});
+	});
+	//////////////////////////////////////////////////////////////////////////////////////////
 });
 $('#consultaProvModif').click(function(){
   $('#consultaProv').hide('slow');
