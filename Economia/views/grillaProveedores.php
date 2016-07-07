@@ -145,7 +145,7 @@ border: 20px solid #ffffff;"
 </div><!-- fin div container -->
 <!--==============================footer=================================-->
 <small> 
-<div class="col-md-12" align="center" style="background-color:#151515;color:#ffffff; font-family:Arial;font-size:8pt;">
+<div  align="center" style="background-color:#151515;color:#ffffff; font-family:Arial;font-size:8pt;"><!--class="col-md-12"-->
     <p>Municipalidad de Resistencia-Av. Italia Nº 150<br />
     Telefono de Informes: (362) 4458201</p>
     <p>Todos los derechos reservados &copy; 2016-Se permite la reproduccion del contenido citando la fuente

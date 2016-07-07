@@ -78,8 +78,10 @@ if (mysqli_num_rows($resultado)!=0){
   $documento_aut4 =  $registro['documento_aut4'];
   $txt_nro_solicitud = $registro['txt_nro_solicitud'];
   }//fin while
-  if ($nroProv == $dni_int) 
-  {$nroProv="--";}
+	if ($nroProv == $dni_int) 
+		{$nroProvParaMostrar="--";}
+	else
+		{$nroProvParaMostrar=$nroProv;}
 }//fin if
 
 
@@ -183,7 +185,7 @@ $pdf->SetFont('courier','',10);
 $pdf->Cell(10,10,'Nro: ',0);
 $pdf->Cell(120,10,$txt_nro_solicitud,0,1);
 $pdf->Cell(60,10,'Numero de Proveedor: ',1);
-$pdf->Cell(120,10,$nroProv,1,1);
+$pdf->Cell(120,10,$nroProvParaMostrar,1,1);
 $pdf->Cell(30,10,'Cuit: ',1);
 $pdf->Cell(50,10,$cuit,1);
 //$pdf->Cell(40,10);

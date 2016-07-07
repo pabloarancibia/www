@@ -40,7 +40,7 @@ $cuit=$precuit;
 $cuit.=$ccuit;
 $cuit.=$postcuit;
 //$cuit = $_POST['cuit'];
-if(empty($_POST['conv_multi'])){
+if(!empty($_POST['conv_multi'])){
 $conv_multi = $_POST['conv_multi'];
 }else{
   $conv_multi = '0000';

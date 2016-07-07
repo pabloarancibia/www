@@ -1,4 +1,5 @@
 <?php
+/*
 if(!isset($_SESSION))
 {
     session_start();
@@ -7,6 +8,7 @@ if (!isset($_SESSION["usuario"])){
     header("Location:../views/frmMenu.php?nologin=false");}
 $_SESSION["usuario"];
 $_SESSION["razonsocial"];
+*/
 if (!function_exists('Conectarse')) {
 include "../Conexion/Conexion.php";
 }
@@ -73,7 +75,6 @@ document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+d
  </div></div>
  </nav></header>
 <!-- script para formulario proveedores
-
 <script "text/javascript" src="../js/ProveedoresInscrip.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/ProveedoresInscrip.css" media="screen" />
 -->
