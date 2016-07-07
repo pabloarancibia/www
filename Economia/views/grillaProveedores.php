@@ -28,7 +28,7 @@ $conexion=Conectarse();
 <link href='../images/icono.png' rel='shortcut icon' type='image/jpg'/>
 <script src="../js/jquery-latest.js" type="text/javascript"></script>
 <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../js/pedmatmod.js"  type="text/javascript"></script>
+<script src="../js/grillaProveedores.js"  type="text/javascript"></script>
 <!--script src="../js/ajaxpedmat.js" type="text/javascript"></script-->
 <!--[if lt IE 9]>
 <script type="text/javascript" src="js/html5.js"></script>
@@ -79,12 +79,12 @@ document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+d
  </nav>
  </header>
  
-<!----------------------------------------------------------- -->
-<div class="container" 
-style="background-color:#E6E6E6;border-radius: 10px 10px 10px 10px;
+<!-----------------------------------------------------------  -->
+<div class="container" style="background-color:#E6E6E6;border-radius: 10px 10px 10px 10px;
 -moz-border-radius: 10px 10px 10px 10px;
 -webkit-border-radius: 10px 10px 10px 10px;
-border: 20px solid #ffffff;">
+border: 20px solid #ffffff;" 
+>
 <div class="filtro">
 <form id="frm_filtro" method="post" action="">
 				<ul>
@@ -97,82 +97,51 @@ border: 20px solid #ffffff;">
                     </li>
                 </ul>
 </form>
+</div><!-- fin div filtro table-striped table-condensed  table-condensed table-hover table-b -->
 
-</div><!-- fin div filtro -->
-<div class="registros" id="agrega-registros">
-	<table class="table table-striped table-condensed table-hover" id="data">
-	<tr>
-	<th width="50" align="center"><span title="nroProv">Nro PROVEEDOR</span></th>
-	<th width="50" align="center">CUIT</th>
-	<th width="50" align="center">CONVENIO Nro</th>
-	<th width="50" align="center">EMAIL</th>
-	<th width="50" align="center">NOMBRES</th>
-	<th width="50" align="center">DOMICILIO</th>
-	<th width="50" align="center">LOCALIDAD</th>
-	<th width="50" align="center">TEL</th>
-	<th width="50" align="center">CP</th>
-	<th width="50" align="center">ENTIDAD</th>
-	<th width="50" align="center">DATOS FILIATORIOS</th>
-	<th width="50" align="center">AP PATERNO</th>
-	<th width="50" align="center">AP MATERNO</th>
-	<th width="50" align="center">APELLIDO</th>
-	<th width="50" align="center">DNI</th>
-	<th width="50" align="center">ESTADO CIVIL</th>
-	<th width="50" align="center">DOMICILIO</th>
-	<th width="50" align="center">LOCALIDAD</th>
-	<th width="50" align="center">PROVINCIA</th>
-	<th width="50" align="center">CODIGO POSTAL</th>
-	<th width="50" align="center">TELEFONO</th>
-	<th width="50" align="center">CELULAR</th>
-	<th width="50" align="center">AP CONYUGUE</th>
-	<th width="50" align="center">NOM CONYUGUE</th>
-	<th width="50" align="center">DNI CONYUGUE</th>
-	<th width="50" align="center">AP AUT</th>
-	<th width="50" align="center">NOM AUT</th>
-	<th width="50" align="center">CARGO AUT</th>
-	<th width="50" align="center">DNI AUT</th>
-	<th width="50" align="center">VALIDADO POR EMAIL</th>
-	</tr>
-	<tr><?php
-	while($registro2 = mysqli_fetch_array($resu)){
-    echo '<tr>
-            <td>'.$registro2['nroProv'].'</td>
-            <td>'.$registro2['cuit'].'</td>
-            <td>'.$registro2['conv_multi'].'</td>
-			<td>'.$registro2['email'].'</td>
-			<td>'.$registro2['nombres'].'</td>
-			<td>'.$registro2['domicilio'].'</td>
-			<td>'.$registro2['localidad'].'</td>
-			<td>'.$registro2['tel'].'</td>
-			<td>'.$registro2['cp'].'</td>
-			<td>'.$registro2['entidad'].'</td>
-			<td>'.$registro2['dtos_filiat'].'</td>
-			<td>'.$registro2['ap_pat'].'</td>
-			<td>'.$registro2['ap_mat'].'</td>
-			<td>'.$registro2['ap_interesado'].'</td>
-			<td>'.$registro2['nom_interesado'].'</td>
-			<td>'.$registro2['dni_int'].'</td>
-			<td>'.$registro2['est_civil_int'].'</td>
-			<td>'.$registro2['domicilio_int'].'</td>
-			<td>'.$registro2['localidad_int'].'</td>
-			<td>'.$registro2['provincia_int'].'</td>
-			<td>'.$registro2['cp_int'].'</td>
-			<td>'.$registro2['tel_int'].'</td>
-			<td>'.$registro2['cel_int'].'</td>
-			<td>'.$registro2['ap_cony'].'</td>
-			<td>'.$registro2['nom_cony'].'</td>
-			<td>'.$registro2['dni_cony'].'</td>
-			<td>'.$registro2['ap_aut'].'</td>
-			<td>'.$registro2['nom_aut'].'</td>
-			<td>'.$registro2['cargo_aut'].'</td>
-			<td>'.$registro2['documento_aut'].'</td>
-			<td>'.$registro2['validado'].'</td>
-          </tr>';        
-	}?>
+<div class="table-responsive">
+<!--    class="table table-condensed table-hover table-bordered"  -->
+ <table id="data" class="table" cellspacing="0">
+        	<thead>
+            	<tr>
+                    <th><span title="nroProv">Nº PROV</span></th>
+                    <th><span title="cuit">CUIT</span></th>
+					<th align="center"><span title="conv_multi"> CONVENIO Nro</span></th>  
+					<th align="center">EMAIL</th>
+					<th align="center">NOMBRES</th>
+					<th align="center"><span title="domicilio">DOMICILIO</span></th>
+					<th align="center">LOCALIDAD</th>
+					<th align="center">TEL</th>
+	<th align="center">CP</th>
+	<th align="center">ENTIDAD</th>
+	<th align="center">DATOS FILIATORIOS</th>
+	<th align="center">AP PATERNO</th>
+	<th align="center">AP MATERNO</th>
+	<th align="center">APELLIDO</th>
+	<th align="center">NOMBRE</th>
+	<th align="center">DNI</th>
+	<th align="center">ESTADO CIVIL</th>
+	<th align="center">DOMICILIO</th>
+	<th align="center">LOCALIDAD</th>
+	<th align="center">PROVINCIA</th>
+	<th align="center">CODIGO POSTAL</th>
+	<th align="center">TELEFONO</th>
+	<th align="center">CELULAR</th>
+	<th align="center">AP CONYUGUE</th>
+	<th align="center">NOM CONYUGUE</th>
+	<th align="center">DNI CONYUGUE</th>
+	<th align="center">AP AUT</th>
+	<th align="center">NOM AUT</th>
+	<th align="center">CARGO AUT</th>
+	<th align="center">DNI AUT</th>
+	<th align="center">VALIDADO POR EMAIL</th>
+                </tr>
+            </thead>
+            <tbody>
+            	
+            </tbody>
         </table>
-</div><!-- fin div registros -->
-
-
+</div> <!--fin div table-responsive -->
 </div><!-- fin div container -->
 <!--==============================footer=================================-->
 <small> 
