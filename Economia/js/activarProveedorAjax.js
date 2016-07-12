@@ -5,6 +5,8 @@ $(document).ready(function(){
   $("#cuitNoIns").hide();
   $("#emailIns").hide();
   $("#emailNoIns").hide();
+  $("#nroProvIns").hide();
+  $("#nroProvNoIns").hide();
 
 
   $("#getdata").click(function(){
@@ -20,6 +22,8 @@ $(document).ready(function(){
             $("#cuitNoIns").val(data.cuit);
             $("#emailIns").val(data.email);
             $("#emailNoIns").val(data.email);
+			$("#nroProvIns").val(data.nroProv);
+			$("#nroProvNoIns").val(data.nroProv);
   				}else{
   					$("#nombres").val("error");
           }

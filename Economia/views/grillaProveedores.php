@@ -22,9 +22,9 @@ $conexion=Conectarse();
 <title>Listado Proveedores</title>
 <link rel="stylesheet" type="text/css" href="../css/estilo.css" media="screen">
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+<!--<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css">
-<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.min.css">-->
 <link href='../images/icono.png' rel='shortcut icon' type='image/jpg'/>
 <script src="../js/jquery-latest.js" type="text/javascript"></script>
 <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -36,7 +36,7 @@ $conexion=Conectarse();
         <![endif]-->
 </head>
 <body class="body" style=" background-image: url(../images/bgcity.jpg);
-  background-attachment: fixed;">
+  background-attachment: fixed;"><!-- -->
    <!--========header==========================-->
 <header>
 <table width="100%" height="120" border="0" background="../images/header2015.jpg">
@@ -101,7 +101,7 @@ border: 20px solid #ffffff;"
 
 <div class="table-responsive">
 <!--    class="table table-condensed table-hover table-bordered"  -->
- <table id="data" class="table" cellspacing="0">
+ <table id="data" class="table table-condensed table-hover table-bordered" cellspacing="0" width="auto">
         	<thead>
             	<tr>
                     <th><span title="nroProv">Nº PROV</span></th>
@@ -145,7 +145,7 @@ border: 20px solid #ffffff;"
 </div><!-- fin div container -->
 <!--==============================footer=================================-->
 <small> 
-<div  align="center" style="background-color:#151515;color:#ffffff; font-family:Arial;font-size:8pt;"><!--class="col-md-12"-->
+<div class="col-md-12" align="center" style="background-color:#151515;color:#ffffff; font-family:Arial;font-size:8pt;"><!---->
     <p>Municipalidad de Resistencia-Av. Italia Nº 150<br />
     Telefono de Informes: (362) 4458201</p>
     <p>Todos los derechos reservados &copy; 2016-Se permite la reproduccion del contenido citando la fuente

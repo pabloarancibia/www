@@ -137,11 +137,13 @@ document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+d
       <form id="frmInscrip" name="frmInscrip" method="post" action="../Logica/actProvDef.php">
         <input type="text" id="cuitIns" name="cuitIns" value="">
         <input type="text" id="emailIns" name="emailIns" value="">
+		<input type="text" id="nroProvIns" name="nroProvIns" value="">
     <input type="submit" id="conHab" name="conHab" value="GENERAR NUMERO DE PROVEEDOR CON HABILITACION MUNICIPAL - Inscripto"/><br /><br />
   </form>
   <form id="frmNoInscrip" name="frmNoInscrip" method="post" action="../Logica/actProvDef.php">
     <input type="text" id="cuitNoIns" name="cuitNoIns" value="">
     <input type="text" id="emailNoIns" name="emailNoIns" value="">
+	<input type="text" id="nroProvNoIns" name="nroProvNoIns" value="">
     <input type="submit" id="sinHab" name="sinHab" value="SIN HABILITACION MUNICIPAL - No Inscripto"/>
   </form>
   </div>

@@ -9,19 +9,23 @@ if(!empty($_POST["conHab"])){
     if (!empty($_POST["cuitIns"])) {
       $cuit = $_POST["cuitIns"];
       $emailIns = $_POST["emailIns"];
+	  //num prov anterior, el que va ser modificado (igual a dni_int)
+	  $nroProvIns=$_POST["nroProvIns"];
+	  
       //buscar ultimo numero de prov +1
       $num_prov = BuscarNumProvInscrip();
       $query = "UPDATE proveedores SET nroProv='$num_prov' WHERE cuit = '$cuit'";
+	  $query_rel = "UPDATE rel_prov_rubros_sub SET id_proveedor = '$num_prov' WHERE id_proveedor = '$nroProvIns'";
         if(mysqli_query($Conexion,$query)){
           pre_enviar_correo($emailIns,$num_prov);
           mysqli_close($Conexion);
           echo "El Numero de Proveedor Generado es = ".$num_prov."<br />
           Enviado a ".$emailIns."<br />
-          <a href='http://localhost/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
+          <a href='http://www.mr.gov.ar/v2/sitio/hacienda/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
           ";
         }else {
           echo "Error en la carga de numero de proveedor<br />
-          <a href='http://localhost/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
+          <a href='http://www.mr.gov.ar/v2/sitio/hacienda/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
           ";
         }
     }
@@ -30,19 +34,22 @@ if(!empty($_POST["conHab"])){
     if (!empty($_POST["cuitNoIns"])) {
       $cuit = $_POST["cuitNoIns"];
       $emailNoIns = $_POST["emailNoIns"];
+	  //num prov anterior, el que va ser modificado
+	  $nroProvNoIns=$_POST["nroProvNoIns"];
       //buscar ultimo numero de prov +1
       $num_prov = BuscarNumProvNoInscrip();
       $query = "UPDATE proveedores SET nroProv='$num_prov' WHERE cuit = '$cuit'";
+	  $query_rel = "UPDATE rel_prov_rubros_sub SET id_proveedor = '$num_prov' WHERE id_proveedor = '$nroProvNoIns'";
         if(mysqli_query($Conexion,$query)){
           pre_enviar_correo($emailNoIns,$num_prov);
           mysqli_close($Conexion);
           echo "El Numero de Proveedor Generado es = ".$num_prov."<br />
           Enviado a ".$emailNoIns."<br />
-          <a href='http://localhost/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
+          <a href='http://www.mr.gov.ar/v2/sitio/hacienda/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
           ";
         }else {
           echo "Error en la carga de numero de proveedor<br />
-          <a href='http://localhost/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
+          <a href='http://www.mr.gov.ar/v2/sitio/hacienda/Economia/views/activarproveedorDefinitivo.php'>Volver</a>
           ";
         }
     }
@@ -51,7 +58,7 @@ function pre_enviar_correo($direcEmail,$num_prov){
   $destinatarios=$direcEmail;
   $mail_asunto="Registro de Proveedor, Municipalidad de Resistencia";
   $mail_contendio="Su registro a sido exitoso, su numero de proveedor es ".$num_prov;//
-  $from="pabloarancibia.dw@gmail.com";
+  $from="noreply.mrgovar@gmail.com";
   $from_name="Municipalidad de Resistencia";
   //$archivos_adjuntos_ruta="";
   //$archivos_adjuntos_temp="";
@@ -110,8 +117,8 @@ $mail->Port       = 465;
 $mail->From = $from;
 $mail->FromName = $from_name;
 
-$mail->Username   = "pabloarancibia.dw@gmail.com";  // GMAIL username
-$mail->Password   = "85791123a";            // GMAIL password
+$mail->Username   = "noreply.mrgovar@gmail.com";  // GMAIL username
+$mail->Password   = "/879/546";            // GMAIL password
 
 $mail->Subject = $mail_asunto;
 

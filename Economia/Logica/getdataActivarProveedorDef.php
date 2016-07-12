@@ -17,9 +17,10 @@ if (mysqli_num_rows($datosProv)!=0){
     $domicilio = $registro['domicilio'];
     $cuit = $registro['cuit'];
     $email = $registro['email'];
+	$nroProv = $registro['nroProv'];
   //echo json_encode(array("nombres"=>$nombres, "domicilio"=>$domicilio));
   }
-  echo json_encode(array("nombres"=>$nombres, "domicilio"=>$domicilio,"cuit"=>$cuit,"email"=>$email));
+  echo json_encode(array("nombres"=>$nombres, "domicilio"=>$domicilio,"cuit"=>$cuit,"email"=>$email,"nroProv"=>$nroProv));
 }else {
   echo json_encode(array("nombres"=>"no hay datos", "domicilio"=>"no hay datos","cuit"=>"no hay datos","email"=>"no hay datos"));
 }

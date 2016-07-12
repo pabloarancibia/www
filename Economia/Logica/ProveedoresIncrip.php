@@ -120,7 +120,7 @@ $clave = generar_txtAct(30);//,'false');
 //echo $clave;
 $validado='no';
 global $url;
-$url = "http://localhost/Economia/views/activarproveedor.php?id=".$clave;
+$url = "http://www.mr.gov.ar/v2/sitio/hacienda/Economia/views/activarproveedor.php?id=".$clave;
 //
 //limpio rel_prov_rubros_sub
 $conexion = Conectarse();
@@ -208,7 +208,7 @@ if (mysqli_query($conexion,$queryGuardar)){
   $destinatarios=$email;
   $mail_asunto="Registro de Proveedor, Municipalidad de Resistencia";
   $mail_contendio="Gracias por Inscribirse. Para completar el registro debe confirmar que ha recibido este email haciendo click en el siguiente enlace: ".$url;//
-  $from="pabloarancibia.dw@gmail.com";
+  $from="noreply.mrgovar@gmail.com";
   $from_name="Municipalidad de Resistencia";
   //$archivos_adjuntos_ruta="";
   //$archivos_adjuntos_temp="";
@@ -321,8 +321,8 @@ $mail->Port       = 465;
 $mail->From = $from;
 $mail->FromName = $from_name;
 
-$mail->Username   = "pabloarancibia.dw@gmail.com";  // GMAIL username
-$mail->Password   = "85791123a";            // GMAIL password
+$mail->Username   = "noreply.mrgovar@gmail.com";  // GMAIL username
+$mail->Password   = "/879/546";            // GMAIL password
 
 $mail->Subject = $mail_asunto;
 
