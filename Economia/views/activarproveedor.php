@@ -43,7 +43,14 @@ $conexion=Conectarse();
  </div></td>
 </tr>
 <tr><td width="40%"></td>
-<td><div align="left" style="color:#ffffff;" ><p><h4>USUARIO:<?php echo $_SESSION["usuario"]?>-<?php echo $_SESSION["razonsocial"]?></h4></p>
+<td>
+<div align="left" style="color:#ffffff;" >
+<p>
+<h4>USUARIO:<?php if (!empty($_SESSION["usuario"])){echo $_SESSION["usuario"];}else{echo ("ERROR");}?>
+-
+<?php if (!empty($_SESSION["razonsocial"])){echo $_SESSION["razonsocial"];}else{echo ("ERROR");}?>
+</h4>
+</p>
  </div></td>
  <td><div align="left" style="color:#ffffff;" >
 <p><h5>
@@ -82,16 +89,17 @@ document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+d
 <!--  -->
 <!--<div class="container-fluid" align="center" style="background-color:#D8D8D8;">-->
 
-<div id='container-fluid' style="margin-right:20px;margin-left:50px">
+<div id='container-fluid' class="container-fluid" style="margin-right:20px;margin-left:50px">
 
 <?php
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
+if (!empty($_GET['id'])){
 $txtActivacion = $_GET['id'];
 //echo $txtActivacion;
 $query="SELECT * FROM proveedores WHERE txt_activ = '$txtActivacion'";
-$resultado=mysqli_query($conexion,$query) or die (mysql_error());
+$resultado=mysqli_query($conexion,$query) or die ("ERROR");
 
 if (mysqli_num_rows($resultado)!=0){
   // TOMAR LOS datos //
@@ -102,15 +110,45 @@ if (mysqli_num_rows($resultado)!=0){
 
   //HACER ACA EL UPDATE DE VALIDADO = SI
   $queryVal = "UPDATE proveedores SET validado='SI' WHERE nroProv=$nroProv and cuit=$cuit";
-  mysqli_query($conexion,$queryVal) or die (mysql_error());
+  mysqli_query($conexion,$queryVal) or die ("ERROR");
+?>
+<style>
+.panel-transparent {
+	background: none;
+	border-color:green;
+}
 
-  echo "<h2 id='title'>MUCHAS GRACIAS, LOS DATOS FUERON REGISTRADOS CORRECTAMENTE, AHORA PUEDE IMPRIMIR SU FORMULARIO</h2>";
+.panel-transparent .panel-heading{
+    background: rgba(0, 255, 0, 0.2)!important;
+	border-color:green;
+}
+
+.panel-transparent .panel-body{
+    background: rgba(46, 51, 56, 0.3)!important;
+}
+</style>
+<div class="panel panel-primary panel-transparent">
+  <div class="panel-heading">
+    <h3 class="panel-title">MUCHAS GRACIAS</h3>
+  </div>
+  <div class="panel-body">
+    LOS DATOS FUERON CONFIRMADOS<BR>
+	DESCARGUE EL FORMULARIO Y LOS REQUISITOS
+  </div>
+</div>
+ <?php
+  //echo "<h2 id='title'>MUCHAS GRACIAS, LOS DATOS FUERON REGISTRADOS CORRECTAMENTE, AHORA PUEDE IMPRIMIR SU FORMULARIO</h2>";
+
+  
   //FPDF
 ///////////////////////////////////////////////////////////////////////////////////////////////
 }else {
   # code...
   echo "ERROR EN LA ACTIVACION DE LA CUENTA";
 }
+
+
+
 /*
 function tomarDatos(){
 
@@ -125,21 +163,24 @@ function generarPdf(){
 }
 */
 mysqli_close($conexion);
+
  ?>
  <style media="screen">
 #forms{
    float:left;
    margin: 20px;
-   margin-bottom: 200px;
    width: 220px;
  }
  </style>
+ <h3>
+Formulario:
+</h3>
  <div id="forms">
  <form action="../Logica/pdfProveedores.php" method="post" target="_blank">
    <input type="hidden" name="id" value="datosProveedor" />
    <input type="hidden" name="txt_activ" value='<?php echo $_GET['id']; ?>' />
    <input type="hidden" name="accion" value="ver" />
-   <button type="submit" style="width:220px;">Ver</button>
+   <button type="submit" style="width:220px;" class="btn btn-success">Ver</button>
  </form>
  </div>
   <div id="forms">
@@ -147,7 +188,7 @@ mysqli_close($conexion);
    <input type="hidden" name="id" value="datosProveedor" />
    <input type="hidden" name="txt_activ" value='<?php echo $_GET['id']; ?>' />
    <input type="hidden" name="accion" value="descargar" />
-   <button type="submit" style="width:220px;">Descargar</button>
+   <button type="submit" style="width:220px;" class="btn btn-success">Descargar</button>
  </form>
  </div>
   <div id="forms">
@@ -155,9 +196,38 @@ mysqli_close($conexion);
    <input type="hidden" name="id" value="datosProveedor" />
    <input type="hidden" name="txt_activ" value='<?php echo $_GET['id']; ?>' />
    <input type="hidden" name="accion" value="imprimir" />
-   <button type="submit" style="width:220px;">Imprimir</button>
+   <button type="submit" style="width:220px;" class="btn btn-success">Imprimir</button>
  </form>
 </div>
+<style>
+a{
+	color:#000;
+	text-decoration: none;
+}
+</style>
+<br><br><br><br>
+<h3>
+Requisitos:
+</h3>
+<div class="" style="float:left">
+<a href="../archivos/RequisitosProveedores.pdf" download="RequisitosProveedores.pdf" >
+<label>Descargar Requisitos</label>
+</a>
+<br>
+<a href="../archivos/RequisitosProveedores.pdf" download="DeclaracionJurada.pdf">
+<label>Descargar Declaracion Jurada</label>
+</a>
+<br>
+<a href="../archivos/RequisitosProveedores.pdf" download="ClasificacionRubros.pdf">
+<label>Descargar Clasificación de Rubros</label>
+</a>
+</div>
+<?php
+}//fin if empty get
+else{
+	echo("ERROR, CODIGO DE ACTIVACION INCORRECTO.");
+}
+?>
 </div><!-- cierre div class="container-fluid"-->
 <br>
 <!--==============================footer=================================-->
