@@ -16,7 +16,7 @@ $conexion=Conectarse();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>SOLICITUD DE INSCRIPCION</title>
+<title>SOLICITUD DE PRE-INSCRIPCION</title>
 <? header("text/html; charset=iso-8859-1");
 //header("text/html; charset=utf-8"); ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -103,12 +103,12 @@ document.write("<small>  <font color='FFFFFF' face='Arial'>"+dayarray[day]+" "+d
   <h4 align="center" class="letra" style="background-color:#7FFF00; color:red;"><strong> <?php
          if(isset($respuesta))
         echo $respuesta;?></strong></h4>
-<div id="title_1">ALTA DE PROVEEDORES</div>
+<div id="title_1">REGISTRO DE PROVEEDORES</div>
 <br />
 <div id='consultaProv'>
   <input type="button" id="consultaProvNo" value="PRE-INSCRIPCION"/><label for="">Si es la Primera vez que ingresa</label><br /><br />
-  <input type="button" id="consultaProvSi" value="ACTUALIZACION"/><label for="">Si Ya tiene número de Proveedor</label>
-  <input type="button" id="consultaProvModif" value="MODIFICAR DATOS"/><label for="">Si Ingresó mal los datos de la Pre-Inscripción</label>
+  <input type="button" id="consultaProvSi" value="ACTUALIZACION"/><label for="">Si Ya tiene número de Proveedor</label><br />
+  <input type="button" id="consultaProvModif" value="MODIFICAR DATOS" /><label for="">Si Ingresó mal los datos de la Pre-Inscripción</label>
 </div>
 <div id="divNumSolicitud">
   <label for="NroSol" id="lblNroSol" name='lblNroSol'>INGRESE EL NÚMERO DE SOLICITUD DE PRE INSCRIPCIÓN</label>

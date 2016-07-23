@@ -4,7 +4,7 @@ if(!isset($_SESSION))
     session_start();
 }
 if (!isset($_SESSION["apynom"])){
-    header("Location:../views/frmMenuUsuarios.php?nologin=false");
+    //header("Location:../views/frmMenuUsuarios.php?nologin=false");
 	$_SESSION["apynom"]="test";
 	}
 $_SESSION["apynom"];
@@ -100,41 +100,41 @@ border: 20px solid #ffffff;"
 </div><!-- fin div filtro table-striped table-condensed  table-condensed table-hover table-b -->
 
 <div class="table-responsive">
-<!--    class="table table-condensed table-hover table-bordered"  -->
- <table id="data" class="table table-condensed table-hover table-bordered" cellspacing="0" width="auto">
+<!--    class="table table-condensed table-hover table-bordered"  cellspacing="0" width="auto"-->
+ <table id="data" class="table table-condensed table-hover table-bordered">
         	<thead>
             	<tr>
-                    <th><span title="nroProv">Nº PROV</span></th>
-                    <th><span title="cuit">CUIT</span></th>
-					<th align="center"><span title="conv_multi"> CONVENIO Nro</span></th>  
-					<th align="center">EMAIL</th>
-					<th align="center">NOMBRES</th>
-					<th align="center"><span title="domicilio">DOMICILIO</span></th>
-					<th align="center">LOCALIDAD</th>
-					<th align="center">TEL</th>
-	<th align="center">CP</th>
-	<th align="center">ENTIDAD</th>
-	<th align="center">DATOS FILIATORIOS</th>
-	<th align="center">AP PATERNO</th>
-	<th align="center">AP MATERNO</th>
-	<th align="center">APELLIDO</th>
-	<th align="center">NOMBRE</th>
-	<th align="center">DNI</th>
-	<th align="center">ESTADO CIVIL</th>
-	<th align="center">DOMICILIO</th>
-	<th align="center">LOCALIDAD</th>
-	<th align="center">PROVINCIA</th>
-	<th align="center">CODIGO POSTAL</th>
-	<th align="center">TELEFONO</th>
-	<th align="center">CELULAR</th>
-	<th align="center">AP CONYUGUE</th>
-	<th align="center">NOM CONYUGUE</th>
-	<th align="center">DNI CONYUGUE</th>
-	<th align="center">AP AUT</th>
-	<th align="center">NOM AUT</th>
-	<th align="center">CARGO AUT</th>
-	<th align="center">DNI AUT</th>
-	<th align="center">VALIDADO POR EMAIL</th>
+                    <th>Nº PROV</th>
+                    <th>CUIT</th>
+					<th>CONVENIO Nro</th>  
+					<th>EMAIL</th>
+					<th>NOMBRES</th>
+					<th>DOMICILIO</th>
+					<th>LOCALIDAD</th>
+					<th>TEL</th>
+	<th>CP</th>
+	<th>ENTIDAD</th>
+	<th>DATOS FILIATORIOS</th>
+	<th>AP PATERNO</th>
+	<th>AP MATERNO</th>
+	<th>APELLIDO</th>
+	<th>NOMBRE</th>
+	<th>DNI</th>
+	<th>ESTADO CIVIL</th>
+	<th>DOMICILIO</th>
+	<th>LOCALIDAD</th>
+	<th>PROVINCIA</th>
+	<th>CODIGO POSTAL</th>
+	<th>TELEFONO</th>
+	<th>CELULAR</th>
+	<th>AP CONYUGUE</th>
+	<th>NOM CONYUGUE</th>
+	<th>DNI CONYUGUE</th>
+	<th>AP AUT</th>
+	<th>NOM AUT</th>
+	<th>CARGO AUT</th>
+	<th>DNI AUT</th>
+	<th>VALIDADO POR EMAIL</th>
                 </tr>
             </thead>
             <tbody>

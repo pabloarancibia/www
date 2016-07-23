@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	// Llamando a la funcion de busqueda al
 	// cargar la pagina
-	filtrar()
+	//filtrar()
 	
 		// filtrar al darle click al boton
 	$("#btnfiltrar").click(function(){ filtrar() });

@@ -79,6 +79,21 @@
  /*box-shadow: 0 5px 5px #508530, 0 9px 0 #508530, 0px 9px 10px rgba(0,0,0,0.4), inset 0px 2px 15px rgba(255,255,255,0.4), inset 0 -2px 9px rgba(0,0,0,0.2)*/
  transform: scale(1.1);
 }
+#consultaProvModif{
+	width: auto;
+	color: #508;
+	font: bold 16px/23px "Lucida Grande", "Trebuchet MS", Arial, Helvetica, sans-serif;
+	padding-top: 5px;
+	margin-right: 20px;
+	/*background: transparent url("../images/bg_legend.gif") no-repeat;*/
+	background-color: #35FC71;
+	border-radius: 7px;
+	-webkit-border-radius: 5px 10px;  /* Safari  */
+	-moz-border-radius: 5px 10px;     /* Firefox */
+	/*text-transform: uppercase;*/
+	letter-spacing: 2px;
+	text-align: center;
+}
 #title {
 	width: 90%;
 	height: 26px;
