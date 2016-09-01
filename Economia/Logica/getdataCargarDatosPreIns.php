@@ -5,7 +5,9 @@ include "../Conexion/Conexion.php";
 }
 $conexion=Conectarse();
 
+if (!empty($_POST["NroSol"]){
 $NroSol=$_POST["NroSol"];
+}
 
 //echo json_encode(array("nombres"=>$cuit, "domicilio"=>"dom"));
 

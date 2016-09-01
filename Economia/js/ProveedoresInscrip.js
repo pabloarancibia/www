@@ -223,7 +223,7 @@ dataType: "json",
 data: { NroSol: $("#NroSol").val() },
 success: function(data){
 if (data.nombres){
-alert("Por serguridad, deberá volver a ingresar CUIT y DOMICILIOS");
+alert("Por serguridad, deberá volver a ingresar CUIT, DOMICILIOS y RUBROS");
 					$("#nombres").val(data.nombres);
 					$("#email").val(data.email);
 					$("#conv_multi").val(data.conv_multi);
